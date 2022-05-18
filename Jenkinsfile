@@ -36,7 +36,7 @@ pipeline {
         stage('Run Sphinx') {
             steps {
                 sh """
-                    docker run --rm -v /docs:/docs sphinxdoc/sphinx make html
+                    docker run --rm -v /docs:/docs localhost:5000/sphinx make html
                 """
             }
         }      
