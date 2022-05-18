@@ -17,12 +17,15 @@ pipeline {
                 sh 'docker --version'
             }
         }
+        
         stage('Remove Existing Sphinx Containers') {
             steps {
                 sh """
                     docker container rm sphinx
                 """
-            }      
+            }
+        }
+        
         stage('Sphinx Doc Setup') {
             steps {
                 sh """
@@ -33,6 +36,7 @@ pipeline {
                 """
             }
         }
+        
         stage('Run Sphinx') {
             steps {
                 sh """
