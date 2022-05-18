@@ -14,14 +14,14 @@ pipeline {
             steps {
                 echo 'Test and Setup'
                 echo 'Show Docker version'
-                sh 'docker --version'
+                sh 'sudo docker --version'
             }
         }
         
         stage('Remove Existing Sphinx Containers') {
             steps {
                 sh """
-                    docker container rm sphinx
+                    sudo docker container rm sphinx
                 """
             }
         }
@@ -29,10 +29,10 @@ pipeline {
         stage('Sphinx Doc Setup') {
             steps {
                 sh """
-                    ls -la
-                    rm /docs/* -R
-                    cp ./* /docs/ -R
-                    ls -la /docs/
+                    sudo ls -la
+                    sudo rm /docs/* -R
+                    sudo cp ./* /docs/ -R
+                    sudo ls -la /docs/
                 """
             }
         }
@@ -40,7 +40,7 @@ pipeline {
         stage('Run Sphinx') {
             steps {
                 sh """
-                    docker run --rm -v /docs:/docs localhost:5000/sphinx-latexpdf:4.5.0 make html
+                    sudo docker run --rm -v /docs:/docs localhost:5000/sphinx-latexpdf:4.5.0 make html
                 """
             }
         }      
