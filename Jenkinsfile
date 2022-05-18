@@ -14,7 +14,7 @@ pipeline {
             steps {
                 echo 'Test and Setup'
                 echo 'Show Docker version'
-                sh 'sudo docker --version'
+                //sh 'sudo docker --version'
             }
         }
         
