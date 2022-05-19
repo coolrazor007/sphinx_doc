@@ -1,4 +1,4 @@
-
+{# Adapted from: https://benmatselby.dev/post/jenkins-basic-agent/ #}
 
 ******************
 Jenkins Configuration
@@ -41,4 +41,10 @@ Agent Setup in Jenkins
   -it \
   jenkins/inbound-agent:4.7-1
   
+  
+#. In Jenkins click on Manage Jenkins on the left hand side.
+#. Under the System Configuration section, click on Configure System.
+#. Scroll to # of executors and change the value from 2 to 0.
+#. Click Save.
+
   
