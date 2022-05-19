@@ -29,3 +29,16 @@ Agent Setup in Jenkins
 #. SSH to the EC2 VM using the credentials supplied previously
 #. Run this command but with your secret:
 
+.. code-block:: bash
+  :linenos:
+
+  docker run --rm \
+  -eJENKINS_SECRET=60cfdbe965723262af3f7c3d4049fbc63ab2088ddf02e8e5d7efaee8dd5d26d4  \
+  -eJENKINS_URL=http://Jenkins:8080 \
+  -eJENKINS_AGENT_NAME=builder \
+  --network infrastructure \
+  --init \
+  -it \
+  jenkins/inbound-agent:4.7-1
+  
+  
