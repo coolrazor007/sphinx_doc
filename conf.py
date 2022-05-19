@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'Sphinx Notes'
+project = 'DevOps Capstone Project'
 copyright = '2022, Tim Phillips'
 author = 'Tim Phillips'
 
