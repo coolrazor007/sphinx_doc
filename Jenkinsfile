@@ -17,13 +17,13 @@ pipeline {
                     whoami                
                     echo 'Test and Setup'
                     echo 'Show Java version'
-                    sudo java --version
+                    java --version
                     echo 'Show Docker version'
-                    sudo docker --version
+                    docker --version
                     echo 'Show PWD'
-                    sudo pwd
+                    pwd
                     echo 'Show dir contents'
-                    sudo ls -la
+                    ls -la
                 """                
 
             }
@@ -32,7 +32,9 @@ pipeline {
         stage('Remove Existing Sphinx Containers') {
             steps {
                 sh """
-                    sudo docker container rm sphinx
+                    sudo docker container rm sphinx || true 
+                    # the 'true' makes this pass every time
+                    # So if the container isn't present and this command fails it doesn't break the build
                 """
             }
         }
