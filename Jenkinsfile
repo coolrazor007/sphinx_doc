@@ -44,7 +44,7 @@ pipeline {
                 sh """
                     ls -la
                     rm /docs/* -R || true #true - won't fail if non-existent
-                    mkdir /docs
+                    mkdir /docs || true
                     chmod 777 /docs
                     cp ./* /docs/ -R
                     ls -la /docs/
