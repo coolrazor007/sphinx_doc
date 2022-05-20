@@ -13,9 +13,9 @@ pipeline {
         stage('Test and Debug Info') {
             steps {
                 sh """
+                    echo 'Test and Setup'
                     echo 'Show running user'
                     whoami                
-                    echo 'Test and Setup'
                     echo 'Show Java version'
                     java --version
                     echo 'Show Docker version'
