@@ -12,9 +12,20 @@ pipeline {
     stages {
         stage('Test and Debug Info') {
             steps {
-                echo 'Test and Setup'
-                echo 'Show Docker version'
-                sh 'sudo docker --version'
+                sh """
+                    echo 'Show running user'
+                    whoami                
+                    echo 'Test and Setup'
+                    echo 'Show Java version'
+                    sudo java --version
+                    echo 'Show Docker version'
+                    sudo docker --version
+                    echo 'Show PWD'
+                    sudo pwd
+                    echo 'Show dir contents'
+                    sudo ls -la
+                """                
+
             }
         }
         
