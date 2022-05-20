@@ -42,10 +42,10 @@ pipeline {
         stage('Sphinx Doc Setup') {
             steps {
                 sh """
-                    sudo ls -la
-                    sudo rm /docs/* -R
-                    sudo cp ./* /docs/ -R
-                    sudo ls -la /docs/
+                    ls -la
+                    rm /docs/* -R || true #true - won't fail if non-existent
+                    cp ./* /docs/ -R
+                    ls -la /docs/
                 """
             }
         }
