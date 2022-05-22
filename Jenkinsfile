@@ -60,6 +60,12 @@ pipeline {
                     sudo docker run --rm -v /docs:/docs --name sphinx localhost:5000/sphinx-latexpdf:4.5.0 make html
                 """
             }
+        stage('Reload Apache') {
+            steps {
+                sh """
+                    sudo docker container restart sphinx-html
+                """
+            }            
         }      
     }
 }
