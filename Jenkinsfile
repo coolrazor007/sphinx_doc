@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'aws'
+    }
     options {
         timeout(time: 20, unit: 'MINUTES')
         buildDiscarder(logRotator(numToKeepStr: '25'))
