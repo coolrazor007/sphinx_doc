@@ -45,10 +45,10 @@ pipeline {
             steps {
                 sh """
                     ls -la
-                    rm /docs/* -R || true #true - won't fail if non-existent
-                    mkdir /docs || true
-                    chmod 777 /docs
-                    cp ./* /docs/ -R
+                    sudo rm /docs/* -R || true #true - won't fail if non-existent
+                    sudo mkdir /docs || true
+                    sudo chmod 777 /docs
+                    sudo cp ./* /docs/ -R
                     ls -la /docs/
                 """
             }
@@ -57,7 +57,7 @@ pipeline {
         stage('Run Sphinx') {
             steps {
                 sh """
-                    docker run --rm -v /docs:/docs --name sphinx localhost:5000/sphinx-latexpdf:4.5.0 make html
+                    sudo docker run --rm -v /docs:/docs --name sphinx localhost:5000/sphinx-latexpdf:4.5.0 make html
                 """
             }
         }      
