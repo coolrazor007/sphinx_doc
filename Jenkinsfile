@@ -1,6 +1,8 @@
 pipeline {
     agent {
-        label 'aws'
+        node {
+            label 'aws'
+        }
     }
     options {
         timeout(time: 20, unit: 'MINUTES')
@@ -70,7 +72,7 @@ pipeline {
         stage('Run Automated Tests') {
             steps {
                 sh """
-                    sudo automated_testing.py
+                    sudo python3 automated_testing.py
                 """
             }
         }
