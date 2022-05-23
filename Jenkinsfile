@@ -72,6 +72,7 @@ pipeline {
                 sh """
                     sudo automated_testing.py
                 """
-            }            
+            }
+        }
     }
 }
