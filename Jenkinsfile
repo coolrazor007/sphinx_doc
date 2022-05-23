@@ -66,6 +66,12 @@ pipeline {
                     sudo docker container restart sphinx-html
                 """
             }            
-        }      
+        }
+        stage('Run Automated Tests') {
+            steps {
+                sh """
+                    sudo automated_testing.py
+                """
+            }            
     }
 }
