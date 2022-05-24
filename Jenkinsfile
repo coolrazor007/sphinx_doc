@@ -94,6 +94,7 @@ pipeline {
                 sh """
                     sudo docker container restart prod-sphinx-html
                 """
-            }            
+            }
+        }          
     }
 }
