@@ -77,5 +77,23 @@ pipeline {
                 """
             }
         }
+        stage('PROD: Sphinx Doc Setup') {
+            steps {
+                sh """
+                    ls -la
+                    sudo rm /PROD-docs/* -R || true #true - won't fail if non-existent
+                    sudo mkdir /PROD-docs || true
+                    sudo chmod 777 /PROD-docs
+                    sudo cp ./* /PROD-docs/ -R
+                    ls -la /PROD-docs/
+                """
+            }
+        }        
+        stage('PROD: Reload Apache') {
+            steps {
+                sh """
+                    sudo docker container restart prod-sphinx-html
+                """
+            }            
     }
 }
