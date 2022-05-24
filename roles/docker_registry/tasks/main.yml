@@ -1,0 +1,16 @@
+---
+
+  - name: Run the Official Docker Registry Container
+    docker_container:
+      detach: true
+      name: "registry"
+      image: registry:2
+      published_ports: ["5000:5000"]
+      restart_policy: "always"
+    register: docker_container_output
+
+  - name: Show Container Status
+    debug:
+      msg: "{{ docker_container_output.container.State.Status }}"
+    #ignore_errors: true
+    

@@ -1,0 +1,28 @@
+---
+
+- name: Pull an image
+  community.docker.docker_image:
+    name: httpd:2.4.53
+    source: pull
+    # Select platform for pulling. If not specified, will pull whatever docker prefers.
+    # pull:
+    #   platform: amd64
+
+- name: Push to local registry
+  community.docker.docker_image:
+    name: httpd:2.4.53
+    repository: localhost:5000/httpd:2.4.53
+    push: yes
+    source: local
+
+- name: Run Apache Server with Rendered Sphinx Doc but for Prod
+  docker_container:
+    detach: true
+    name: "prod-sphinx-html"
+    published_ports: ["80:80"]
+    image: localhost:5000/httpd:2.4.53
+    volumes:
+      - /PROD-docs/_build/html/:/usr/local/apache2/htdocs/
+
+
+    

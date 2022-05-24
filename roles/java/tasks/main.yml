@@ -1,0 +1,31 @@
+---
+
+- name: Check if java is installed
+  command: java -version
+  register: java_result
+  ignore_errors: True
+
+- debug:
+    msg: "Success - Java is already installed"
+  when:  java_result is success
+
+- name: Install Java
+  apt:
+    name: default-jre
+  when: java_result is failed
+  
+- name: Save java home folder
+  shell: "dirname $(dirname $(readlink -e /usr/bin/java))"
+  register: java_dir
+  changed_when: false
+
+- name: Check JAVA_HOME on target system (1)
+  stat:
+    path: "{{ java_dir.stdout }}/bin/java"
+  register: java_dir_java
+
+- name: Check JAVA_HOME on target system (2)
+  fail:
+    msg: Please check link /usr/bin/java, it does not point on java executable within standard Java/Jre folders structure
+  when: not java_dir_java.stat.exists
+

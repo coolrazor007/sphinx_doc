@@ -11,8 +11,7 @@ Post-Graduate DevOps Program Capstone
 
    usage/installation
    usage/quickstart
-   capstone/jenkins
-
+   capstone/project
 Indices and tables
 ==================
 

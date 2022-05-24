@@ -1,100 +1,106 @@
 pipeline {
-    agent {
-        node {
-            label 'aws'
-        }
-    }
+    agent any
     options {
         timeout(time: 20, unit: 'MINUTES')
         buildDiscarder(logRotator(numToKeepStr: '25'))
     }
 
+    // parameters {
+    //     string(name: 'VMNAME', defaultValue: 'NewGenericVM', description: 'Name for the new VM')
+    //     // Parameters automatically become environment variables FYI.  No need to declare them in environment block
+    // }
+
     environment {
-        TIMESTAMP = "$BUILD_TIMESTAMP"               
+        TIMESTAMP = "$BUILD_TIMESTAMP"
+        _7zipPass  = credentials('Archive-Pass')
+        //AWS_ACCESS_KEY_ID     = credentials('lab_access_key')
+        //AWS_SECRET_ACCESS_KEY = credentials('lab_secret_key')
+        //AWS_TOKEN = credentials('lab_token')
+        //AWS_Creds_File = credentials('AWS_CalTech_creds')                
     }
 
     stages {
-        stage('Test and Debug Info') {
+        stage('Test and Setup') {
+            steps {
+                echo 'Test and Setup'
+                echo 'Show AWS CLI version'
+                sh 'aws --version'
+                echo 'Show Terraform version'
+                sh 'terraform -version'
+                echo 'Show Packer version'
+                sh 'packer -version'
+                echo 'Show Ansible version'
+                sh 'ansible --version'
+            }
+        }
+        stage('Terraform AWS Creds') {
             steps {
                 sh """
-                    echo 'Test and Setup'
-                    echo 'Show running user'
-                    whoami                
-                    echo 'Show Java version'
-                    java --version
-                    echo 'Show Docker version'
-                    docker --version
-                    echo 'Show PWD'
-                    pwd
-                    echo 'Show dir contents'
+                    cd lab-project
+                    7z e -p${_7zipPass} Archive.7z -aoa -o./
+                    7z e -p${_7zipPass} ArchiveAWSssh.7z -aoa -o./ 
                     ls -la
-                """                
-
-            }
-        }
-        
-        stage('Remove Existing Sphinx Containers') {
-            steps {
-                sh """
-                    sudo docker container rm sphinx || true 
-                    # the 'true' makes this pass every time
-                    # So if the container isn't present and this command fails it doesn't break the build
                 """
             }
         }
-        
-        stage('Sphinx Doc Setup') {
+        stage('Terraform Init') {
             steps {
                 sh """
-                    ls -la
-                    sudo rm /docs/* -R || true #true - won't fail if non-existent
-                    sudo mkdir /docs || true
-                    sudo chmod 777 /docs
-                    sudo cp ./* /docs/ -R
-                    ls -la /docs/
+                    cd lab-project
+                    terraform init
                 """
             }
         }
-        
-        stage('Run Sphinx') {
+        stage('Terraform Validate') {
             steps {
                 sh """
-                    sudo docker run --rm -v /docs:/docs --name sphinx localhost:5000/sphinx-latexpdf:4.5.0 make html
+                    cd lab-project
+                    terraform validate
                 """
             }
         }
-        stage('Reload Apache') {
+        stage('Terraform Deploy EC2 Instance') {
             steps {
                 sh """
-                    sudo docker container restart sphinx-html
-                """
-            }            
-        }
-        stage('Run Automated Tests') {
-            steps {
-                sh """
-                    sudo python3 automated_testing.py
+                    cd lab-project
+                    terraform apply -auto-approve
                 """
             }
         }
-        stage('PROD: Sphinx Doc Setup') {
+        stage('Terraform Elastic IP') {
             steps {
                 sh """
-                    ls -la
-                    sudo rm /PROD-docs/* -R || true #true - won't fail if non-existent
-                    sudo mkdir /PROD-docs || true
-                    sudo chmod 777 /PROD-docs
-                    sudo cp ./* /PROD-docs/ -R
-                    ls -la /PROD-docs/
+                    cd lab-project
+                    terraform apply -auto-approve
                 """
             }
         }        
-        stage('PROD: Reload Apache') {
+        stage('Run Ansible') {
             steps {
                 sh """
-                    sudo docker container restart prod-sphinx-html
+                    cd lab-project
+                    echo "Checking inventory"
+                    cat inventory.cfg
+                    ansible-playbook -i inventory.cfg main.yml --key-file "Caltech-Lab-AWS-Key"
                 """
             }
-        }          
+        }        
+        stage('Terraform AWS Creds Cleanup') {
+            steps {
+                sh """
+                    cd lab-project
+                    #ls -la
+                    rm provider.tf Caltech-Lab-AWS-Key
+                    #ls -la
+                """
+            }
+        }       
     }
+    //I'm not sure how this will play with existing terraform deployed objects.  Like it may make Terraform deploy new ones each time since it doesn't save the state
+    // post {
+    //     always {
+    //         echo 'Cleaning Up Workspace'
+    //         deleteDir() /* clean up our workspace */
+    //     }
+    // }
 }
