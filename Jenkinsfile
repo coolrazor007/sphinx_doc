@@ -74,7 +74,7 @@ pipeline {
                 sh """
                     echo "Checking inventory"
                     cat inventory.cfg
-                    ansible-playbook -i inventory.cfg main.yml --key-file "Caltech-Lab-AWS-Key"
+                    ansible-playbook -i inventory.cfg main.yml --key-file "project"
                 """
             }
         }        
@@ -82,7 +82,7 @@ pipeline {
             steps {
                 sh """
                     #ls -la
-                    rm provider.tf Caltech-Lab-AWS-Key
+                    rm provider.tf project
                     #ls -la
                 """
             }
