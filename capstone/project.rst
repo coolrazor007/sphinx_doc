@@ -85,8 +85,10 @@ Back in the Ubuntu terminal type the following commands but replace "git@github.
 
 .. code-block:: bash
 
+  wget https://raw.githubusercontent.com/coolrazor007/sphinx_doc/main/config
+  mv config ~/.ssh/
   cd ~/repos
-  ssh-keyscan github.com >> ~/.ssh/known_hosts
+  ssh-keyscan ssh.github.com -p 443 >> ~/.ssh/known_hosts  
   git clone git@github.com:coolrazor007/sphinx_doc.git
   cp ~/.ssh/project .
   cp ~/.ssh/project.pub .
@@ -113,30 +115,12 @@ Fill in the access and secret keys with info from your AWS account
 
 
 
-
-
-
 Jenkins Configuration
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Display the generated install password for Jenkins on your host machine
-
-.. code-block:: bash
-
-  sudo cat /var/lib/jenkins/secrets/initialAdminPassword
-  #(keep the password handy)
+Setting up Jenkins to deploy to AWS
 
 * Navigate to: http://localhost:8080
-* Enter in the password from previous cat command
-* Click: Continue
-* Click: Install suggested plugins
-* Click: continue (some may error)
-* Enter user account information (admin/admin)
-* Click: Save and Continue
-* Click: Save and Finish
-* Click: Restart
-* NOTE: Webpage may hang, just refresh the page
-* Login with new user
 * Click: Manage Jenkins
 * Click: Manage Credentials
 * Click: (global)
