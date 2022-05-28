@@ -36,9 +36,7 @@ pipeline {
         stage('Terraform AWS Creds') {
             steps {
                 sh """
-                    cd lab-project
                     7z e -p${_7zipPass} Archive.7z -aoa -o./
-                    7z e -p${_7zipPass} ArchiveAWSssh.7z -aoa -o./ 
                     ls -la
                 """
             }
@@ -46,7 +44,6 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 sh """
-                    cd lab-project
                     terraform init
                 """
             }
@@ -54,7 +51,6 @@ pipeline {
         stage('Terraform Validate') {
             steps {
                 sh """
-                    cd lab-project
                     terraform validate
                 """
             }
@@ -62,7 +58,6 @@ pipeline {
         stage('Terraform Deploy EC2 Instance') {
             steps {
                 sh """
-                    cd lab-project
                     terraform apply -auto-approve
                 """
             }
@@ -70,7 +65,6 @@ pipeline {
         stage('Terraform Elastic IP') {
             steps {
                 sh """
-                    cd lab-project
                     terraform apply -auto-approve
                 """
             }
@@ -78,7 +72,6 @@ pipeline {
         stage('Run Ansible') {
             steps {
                 sh """
-                    cd lab-project
                     echo "Checking inventory"
                     cat inventory.cfg
                     ansible-playbook -i inventory.cfg main.yml --key-file "Caltech-Lab-AWS-Key"
@@ -88,7 +81,6 @@ pipeline {
         stage('Terraform AWS Creds Cleanup') {
             steps {
                 sh """
-                    cd lab-project
                     #ls -la
                     rm provider.tf Caltech-Lab-AWS-Key
                     #ls -la
