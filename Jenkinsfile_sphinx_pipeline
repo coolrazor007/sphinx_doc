@@ -84,7 +84,7 @@ pipeline {
                     sudo rm /PROD-docs/* -R || true #true - won't fail if non-existent
                     sudo mkdir /PROD-docs || true
                     sudo chmod 777 /PROD-docs
-                    sudo cp ./* /PROD-docs/ -R
+                    sudo cp /docs/* /PROD-docs/ -R
                     ls -la /PROD-docs/
                 """
             }
