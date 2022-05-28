@@ -19,7 +19,7 @@ Jenkins CI/CD Pipeline
 
 The pipeline will encompass spinning up a docker container to run Sphinx with the latest code from GitHub for the documentation (coincidentally this very documentation).  Then after it builds the html content the pipeline will deploy it to a staging docker container.  A Python scrypt is ran against the html page to check for a few tests to verify the document rendered and deployed properly.  After this, assuming tests are successful, the pipeline will deploy the artifact to a production html container to host the updated website.
 
-Pre-requisites
+Pre-requisite Jenkins Instance
 ~~~~~~~~~~~~~~~~~~~~~~
 
 This procedure is to be ran on your school Ubuntu VM, but it should work on most Ubuntu VMs.
@@ -31,46 +31,80 @@ This procedure is to be ran on your school Ubuntu VM, but it should work on most
 
 
 At this point the Jenkins initial install password will be displayed on the screen.  Make note of it as you will use it in the subsequent steps.
-Next open a web browser and navigate to the IP address of your Ubuntu VM, but on port 8080.  For example: http://192.168.1.253:8080
-You will be presented with a "Getting Started" page asking you to input the Administrator Password.  That password is the one from earlier.  Paste it into the field and click Continue.
 
+* Navigate to: http://localhost:8080
+* Enter in the password from previously ran script
+* Click: Continue
+* Click: Install suggested plugins
+* Click: continue (some may error)
+* Enter user account information (admin/admin)
+* Click: Save and Continue
+* Click: Save and Finish
+* Click: Start using Jenkins
 
-Create GIT Repo ((((((FORKING)))))
+SSH Key
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Start by making a local GIT repo and adding files
+Now we create the SSH keys used for authentication.  Run the following commands on your Ubuntu VM.
 
 .. code-block:: bash
 
-  mkdir repos
-  cd repos
-  mkdir project
-  cd project
-  git init
-
-
-Create all of the files in Appendix A in this directory.  Use nano to create them.  Example: nano Jenkinsfile.  Note that for the file named “provider.tf” you need to replace the AWS credentials with your own.
-
-
-SSH and GitHub
-~~~~~~~~~~~~~~~~~~~~~~
-
-First we create the SSH keys for authentication.
-
-.. code-block:: bash
-
+  mkdir ~/repos
+  cd ~/repos
   mkdir ~/.ssh
   ssh-keygen -t ed25519 -C "your_email@example.com" -f ~/.ssh/project
   #hit enter twice to skip passphrase
   eval "$(ssh-agent -s)"
   ssh-add ~/.ssh/project
-  cp ~/.ssh/project .
-  cp ~/.ssh/project.pub .
   cat project.pub
   #Copy the public key to your local clipboard
 
+Fork GIT Repo
+~~~~~~~~~~~~~~~~~~~~~~
+
+Start by making forking my GIT repo and editing files
+
+* Login to Github.com with your account
+* Then navigate to this url: https://github.com/coolrazor007/sphinx_doc
+* On the top right there should be a "fork" button.  Click on it
+* Click: Create fork
+* Go to settings for project repo (center screen)
+* Go to Deploy keys
+* Click: Add deploy key
+* Paste in public key for project.pub (Title should be: project public key)
+* Check the box for “Allow write access”
+* Click: Add key
+* Confirm Github access by putting in your Github password
+* Click: Confirm password
+* Click: <> Code (top left)
+* Click: Code (green button center screen)
+* Select: SSH
+* Copy the text in the box that looks similar to this: git@github.com:coolrazor007/sphinx_doc.git
+
+Back in the Ubuntu terminal type the following commands but replace "git@github.com:coolrazor007/sphinx_doc.git" with the actual text for your account from the previous step:
+
+.. code-block:: bash
+
+  cd ~/repos
+  ssh-keyscan github.com >> ~/.ssh/known_hosts
+  git clone git@github.com:coolrazor007/sphinx_doc.git
+  cp ~/.ssh/project .
+  cp ~/.ssh/project.pub .
+
+
+Edit Files
+~~~~~~~~~~~~~~~~~~~~~~
+
 Edit main.tf (ie: nano main.tf)
 Look for  "public_key = "" <--enter in your public key you cat'd in the previous command
+Look for "private_key = file(...)"  <--replace existing line with: private_key = file("project")
+
+
+
+(DUUPE) SSH and GitHub
+~~~~~~~~~~~~~~~~~~~~~~
+
+
 
 .. code-block:: bash
 
@@ -78,25 +112,8 @@ Look for  "public_key = "" <--enter in your public key you cat'd in the previous
   rm project provider.tf
 
 
-Navigate to GitHub.com and login
-Create a private repo named "project"
-Go to settings for project repo
-Go to Deploy keys
-Click: Add deploy key
-Paste in public key for project.pub (name the key entry: project public key)
-Check the box for “Allow write access”
-Click: Add key
 
-Go back to your CLI Terminal
 
-.. code-block:: bash
-
-  git add .
-  git commit -m "first commit"
-  git branch -M main
-  git remote add origin git@github.com:[github_user]/project.git
-  git push -u origin main
-  #Type: yes to accept the key
 
 
 Jenkins Configuration
