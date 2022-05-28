@@ -27,12 +27,8 @@ Install the follow packages using the commands below (ignore error on first comm
 
 .. code-block:: bash
 
-  wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
-  sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
-  curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-  sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-  sudo apt-get update
-  sudo apt-get install -y openjdk-8-jre-headless python3 git awscli ansible jenkins ssh p7zip-full gnupg software-properties-common curl terraform
+  wget asdfasdf
+  sudo sh jenkins-install.sh
 
 
 
