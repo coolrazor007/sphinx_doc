@@ -137,7 +137,7 @@ Setting up Jenkins to deploy to AWS
 * * Enter a name: Sphinx-EC2
 * * Click: Pipeline
 * * Click: ok
-* Heading: Sphinx-EC2 Config
+* Heading: Sphinx-EC2
 * * Pipeline
 * * * Definition: Pipeline script from SCM
 * * * SCM: Git
