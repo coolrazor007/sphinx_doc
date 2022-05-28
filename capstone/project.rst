@@ -22,12 +22,11 @@ The pipeline will encompass spinning up a docker container to run Sphinx with th
 Pre-requisites
 ~~~~~~~~~~~~~~~~~~~~~~
 
-This procedure is to be ran on your school Ubuntu VM.
-Install the follow packages using the commands below (ignore error on first command):
+This procedure is to be ran on your school Ubuntu VM, but it should work on most Ubuntu VMs.
 
 .. code-block:: bash
 
-  wget asdfasdf
+  wget https://raw.githubusercontent.com/coolrazor007/sphinx_doc/main/jenkins-install.sh
   sudo sh jenkins-install.sh
 
 
