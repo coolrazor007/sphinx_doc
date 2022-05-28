@@ -30,6 +30,10 @@ This procedure is to be ran on your school Ubuntu VM, but it should work on most
   sudo sh jenkins-install.sh
 
 
+At this point the Jenkins initial install password will be displayed on the screen.  Make note of it as you will use it in the subsequent steps.
+Next open a web browser and navigate to the IP address of your Ubuntu VM, but on port 8080.  For example: http://192.168.1.253:8080
+You will be presented with a "Getting Started" page asking you to input the Administrator Password.  That password is the one from earlier.  Paste it into the field and click Continue.
+
 
 Create GIT Repo ((((((FORKING)))))
 ~~~~~~~~~~~~~~~~~~~~~~
