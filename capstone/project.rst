@@ -99,17 +99,17 @@ Edit main.tf (ie: nano main.tf)
 Look for  "public_key = "" <--enter in your public key you cat'd in the previous command
 Look for "private_key = file(...)"  <--replace existing line with: private_key = file("project")
 
-
-
-(DUUPE) SSH and GitHub
-~~~~~~~~~~~~~~~~~~~~~~
-
+Edit provider.tf
+Fill in the access and secret keys with info from your AWS account
 
 
 .. code-block:: bash
 
   7z a -p[password with no space next to the “p”] Archive project provider.tf
   rm project provider.tf
+  git add .
+  git commit -m "initial edit"
+  git push
 
 
 
