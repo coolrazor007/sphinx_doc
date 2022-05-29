@@ -9,12 +9,32 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --yes --dearmor -o
 echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
 $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
+. /etc/lsb-release
+echo "here is the Ubuntu version"
+echo $DISTRIB_CODENAME
+
+if [ $DISTRIB_CODENAME = "xenial" ]
+then
+  echo "Ubuntu version: Xenial"
+  snap install terraform
+  snap install packer
+  alias terraform="/snap/terraform/current/terraform"
+  alias packer="/snap/packer/current/bin/packer"
+else
+  curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --yes --dearmor -o /etc/apt/keyrings/hashicorp.gpg
+  echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/hashicorp.list > /dev/null
+  apt-get update
+  apt-get install -y terraform packer
+fi
+
+
 curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --yes --dearmor -o /etc/apt/keyrings/hashicorp.gpg
 echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com \
 $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/hashicorp.list > /dev/null
 
 apt-get update
-apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin p7zip-full default-jre nano awscli terraform packer ansible
+apt-get install -y docker-ce docker-ce-cli containerd.io p7zip-full default-jre nano awscli ansible
 docker run hello-world
 
 docker run -p 8080:8080 -d --name jenkins jenkins/jenkins:lts
