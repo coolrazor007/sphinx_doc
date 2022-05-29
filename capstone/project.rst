@@ -36,7 +36,7 @@ At this point the Jenkins initial install password will be displayed on the scre
 * Enter in the password from previously ran script
 * Click: Continue
 * Click: Install suggested plugins
-* Click: continue (some may error)
+* Click: (hit 'retry' until you get all of them)
 * Enter user account information (admin/admin)
 * Click: Save and Continue
 * Click: Save and Finish
