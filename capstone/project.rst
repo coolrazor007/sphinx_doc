@@ -56,7 +56,7 @@ Now we create the SSH keys used for authentication.  Run the following commands 
   #hit enter twice to skip passphrase
   eval "$(ssh-agent -s)"
   ssh-add ~/.ssh/project
-  cat project.pub
+  cat ~/.ssh/project.pub
   #Copy the public key to your local clipboard
 
 Fork GIT Repo
@@ -88,8 +88,8 @@ Back in the Ubuntu terminal type the following commands but replace "git@github.
   wget https://raw.githubusercontent.com/coolrazor007/sphinx_doc/main/config
   mv config ~/.ssh/
   cd ~/repos
-  ssh-keyscan ssh.github.com -p 443 >> ~/.ssh/known_hosts  
   git clone git@github.com:coolrazor007/sphinx_doc.git
+  cd sphinx_doc
   cp ~/.ssh/project .
   cp ~/.ssh/project.pub .
 
@@ -97,12 +97,12 @@ Back in the Ubuntu terminal type the following commands but replace "git@github.
 Edit Files
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Edit main.tf (ie: nano main.tf)
+Edit builder.tf (ie: nano builder.tf)
 Look for  "public_key = "" <--enter in your public key you cat'd in the previous command
 Look for "private_key = file(...)"  <--replace existing line with: private_key = file("project")
 
 Edit provider.tf
-Fill in the access and secret keys with info from your AWS account
+Fill in the access and secret keys with info from your AWS account.  Adjust region if applicable.
 
 
 .. code-block:: bash
