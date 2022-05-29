@@ -43,10 +43,12 @@
   - name: Create a network
     community.docker.docker_network:
       name: "infrastructure"
+      status: present
 
   - name: Create a network
     community.docker.docker_network:
       name: "web"
+      status: present
 
   - name: Run the test
     docker_container:
