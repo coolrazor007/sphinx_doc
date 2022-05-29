@@ -132,37 +132,38 @@ Setting up Jenkins to deploy to AWS
 * * Description: 7zip password
 * Click: Ok
 * Click: Dashboard
-*. Click on Manage Jenkins on the left hand side.
-*. Under the System Configuration section, click on Manage Nodes and Clouds.
-*. On the left hand side, click on New Node.
-*. Type 'builder' for the name
-*. Click on the Permanent Agent radio box.
-*. Click Create.
-*. Write a brief description in the Description field
-*. Leave the number of executors to 1
-*. Enter /home/ubuntu/agent/ into the Remote root directory text field
-*. Check the box for Use WebSocket
-*. Click Save
-*. Click on the 'builder' agent
-*. You should see text similar to this: java -jar agent.jar -jnlpUrl http://localhost:8080/computer/builder/jenkins-agent.jnlp -secret 91af70f19b975b97eef81d42f624f1c44bl1d216b380905c9c27531d2259d823 -workDir "/home/ubuntu/agent/"
-*. Copy the value for '-secret' to the clipboard
-*. Open the terminal on the Ubuntu VM
-*. Run this command but with your secret instead:
+* Click on Manage Jenkins on the left hand side.
+* Under the System Configuration section, click on Manage Nodes and Clouds.
+* On the left hand side, click on New Node.
+* Type 'infra' for the name
+* Click on the Permanent Agent radio box.
+* Click Create.
+* Write a brief description in the Description field
+* Leave the number of executors to 1
+* Enter /opt/jenkins/agent/ into the Remote root directory text field
+* Type 'infra' for the label
+* Check the box for Use WebSocket
+* Click Save
+* Click on the 'builder' agent
+* You should see text similar to this: java -jar agent.jar -jnlpUrl http://localhost:8080/computer/builder/jenkins-agent.jnlp -secret 91af70f19b975b97eef81d42f624f1c44bl1d216b380905c9c27531d2259d823 -workDir "/home/ubuntu/agent/"
+* Copy the value for '-secret' to the clipboard
+* Open the terminal on the Ubuntu VM
+* Run this command but with your secret instead:
 
 .. code-block:: bash
   :linenos:
 
     wget http://localhost:8080/jnlpJars/agent.jar
-    sudo java -jar agent.jar -jnlpUrl http://localhost:8080/computer/builder/jenkins-agent.jnlp -secret f0d4144849316e8ecab8159edf82da8f08d33410ff5ef361dbbc153cc54fc455 -workDir "/home/ubuntu/agent/"
+    sudo java -jar agent.jar -jnlpUrl http://localhost:8080/computer/infra/jenkins-agent.jnlp -secret f0d4144849316e8ecab8159edf82da8f08d33410ff5ef361dbbc153cc54fc455 -workDir "/opt/jenkins/agent/"
 
-*. In Jenkins click on Manage Jenkins on the left hand side.
-*. Under the System Configuration section, click on Configure System.
-*. Scroll to # of executors and change the value from 2 to 0.
-*. Click Save.
+* In Jenkins click on Manage Jenkins on the left hand side.
+* Under the System Configuration section, click on Configure System.
+* Scroll to # of executors and change the value from 2 to 0.
+* Click Save.
 * Click: Dashboard
 * Click: New Item
 * New Item:
-* * Enter a name: Sphinx-EC2
+* * Enter a name: Sphinx-EC2-Deploy
 * * Click: Pipeline
 * * Click: ok
 * Heading: Sphinx-EC2
