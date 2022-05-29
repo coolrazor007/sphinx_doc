@@ -16,10 +16,11 @@ echo $DISTRIB_CODENAME
 if [ $DISTRIB_CODENAME = "xenial" ]
 then
   echo "Ubuntu version: Xenial"
-  snap install terraform
-  snap install packer
-  alias terraform="/snap/terraform/current/terraform"
-  alias packer="/snap/packer/current/bin/packer"
+  #snap install terraform
+  #snap install packer
+  #alias terraform="/snap/terraform/current/terraform"
+  #alias packer="/snap/packer/current/bin/packer"
+  echo "Ansible that is available with Xenial is not supported by this project"
 else
   curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --yes --dearmor -o /etc/apt/keyrings/hashicorp.gpg
   echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com \
