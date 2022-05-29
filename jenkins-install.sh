@@ -23,9 +23,8 @@ then
   echo "Ansible that is available with Xenial is not supported by this project"
   exit 1
 else
-  curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --yes --dearmor -o /etc/apt/keyrings/hashicorp.gpg
-  echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/hashicorp.list > /dev/null
+  wget -qO - terraform.gpg https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/terraform-archive-keyring.gpg
+  sudo echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/terraform-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" > /etc/apt/sources.list.d/terraform.list
   apt-get update
   apt-get install -y terraform packer
 fi
