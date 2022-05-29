@@ -2,7 +2,7 @@
 
 apt-get remove -y docker docker-engine docker.io containerd runc
 apt-get update
-apt-get install software-properties-common gnupg2 curl
+apt-get install -y software-properties-common gnupg2 curl
 mkdir -p /etc/apt/keyrings
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --yes --dearmor -o /etc/apt/keyrings/docker.gpg
