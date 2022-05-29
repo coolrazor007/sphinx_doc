@@ -20,6 +20,7 @@ Agent Setup in Jenkins
 #. Write a brief description in the Description field
 #. Leave the number of executors to 1
 #. Enter /home/ubuntu/agent/ into the Remote root directory text field
+#. Under "Host Key Verification Strategy" select 'Non verifying Verification Strategy'
 #. Check the box for Use WebSocke
 #. Click Save
 

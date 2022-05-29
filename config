@@ -1,5 +1,5 @@
 Host github.com
-    Hostname ssh.github.com
+    Hostname github.com
     IdentityFile ~/.ssh/project
     IdentitiesOnly yes
-    Port 443
+    StrictHostKeyChecking no

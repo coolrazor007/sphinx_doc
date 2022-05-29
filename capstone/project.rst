@@ -36,7 +36,7 @@ At this point the Jenkins initial install password will be displayed on the scre
 * Enter in the password from previously ran script
 * Click: Continue
 * Click: Install suggested plugins
-* Click: continue (some may error)
+* Click: (hit 'retry' until you get all of them)
 * Enter user account information (admin/admin)
 * Click: Save and Continue
 * Click: Save and Finish
@@ -56,7 +56,7 @@ Now we create the SSH keys used for authentication.  Run the following commands 
   #hit enter twice to skip passphrase
   eval "$(ssh-agent -s)"
   ssh-add ~/.ssh/project
-  cat project.pub
+  cat ~/.ssh/project.pub
   #Copy the public key to your local clipboard
 
 Fork GIT Repo
@@ -88,8 +88,8 @@ Back in the Ubuntu terminal type the following commands but replace "git@github.
   wget https://raw.githubusercontent.com/coolrazor007/sphinx_doc/main/config
   mv config ~/.ssh/
   cd ~/repos
-  ssh-keyscan ssh.github.com -p 443 >> ~/.ssh/known_hosts  
   git clone git@github.com:coolrazor007/sphinx_doc.git
+  cd sphinx_doc
   cp ~/.ssh/project .
   cp ~/.ssh/project.pub .
 
@@ -97,12 +97,12 @@ Back in the Ubuntu terminal type the following commands but replace "git@github.
 Edit Files
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Edit main.tf (ie: nano main.tf)
+Edit builder.tf (ie: nano builder.tf)
 Look for  "public_key = "" <--enter in your public key you cat'd in the previous command
 Look for "private_key = file(...)"  <--replace existing line with: private_key = file("project")
 
 Edit provider.tf
-Fill in the access and secret keys with info from your AWS account
+Fill in the access and secret keys with info from your AWS account.  Adjust region if applicable.
 
 
 .. code-block:: bash
@@ -132,9 +132,38 @@ Setting up Jenkins to deploy to AWS
 * * Description: 7zip password
 * Click: Ok
 * Click: Dashboard
+* Click on Manage Jenkins on the left hand side.
+* Under the System Configuration section, click on Manage Nodes and Clouds.
+* On the left hand side, click on New Node.
+* Type 'infra' for the name
+* Click on the Permanent Agent radio box.
+* Click Create.
+* Write a brief description in the Description field
+* Leave the number of executors to 1
+* Enter /opt/jenkins/agent/ into the Remote root directory text field
+* Type 'infra' for the label
+* Check the box for Use WebSocket
+* Click Save
+* Click on the 'builder' agent
+* You should see text similar to this: java -jar agent.jar -jnlpUrl http://localhost:8080/computer/builder/jenkins-agent.jnlp -secret 91af70f19b975b97eef81d42f624f1c44bl1d216b380905c9c27531d2259d823 -workDir "/home/ubuntu/agent/"
+* Copy the value for '-secret' to the clipboard
+* Open the terminal on the Ubuntu VM
+* Run this command but with your secret instead:
+
+.. code-block:: bash
+  :linenos:
+
+    wget http://localhost:8080/jnlpJars/agent.jar
+    sudo java -jar agent.jar -jnlpUrl http://localhost:8080/computer/infra/jenkins-agent.jnlp -secret f0d4144849316e8ecab8159edf82da8f08d33410ff5ef361dbbc153cc54fc455 -workDir "/opt/jenkins/agent/"
+
+* In Jenkins click on Manage Jenkins on the left hand side.
+* Under the System Configuration section, click on Configure System.
+* Scroll to # of executors and change the value from 2 to 0.
+* Click Save.
+* Click: Dashboard
 * Click: New Item
 * New Item:
-* * Enter a name: Sphinx-EC2
+* * Enter a name: Sphinx-EC2-Deploy
 * * Click: Pipeline
 * * Click: ok
 * Heading: Sphinx-EC2
