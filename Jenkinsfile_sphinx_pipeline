@@ -61,8 +61,8 @@ pipeline {
             steps {
                 sh """
                     sudo docker run --rm -v /docs:/docs --name sphinx localhost:5000/sphinx-latexpdf:4.5.0 make html
-                    #sudo docker run --rm -v /docs:/docs --name sphinx localhost:5000/sphinx-latexpdf:4.5.0 make latexpdf
-                    #sudo cp /docs/_build/latex/devopscapstoneproject.pdf /docs/_build/html/devopscapstoneproject.pdf
+                    sudo docker run --rm -v /docs:/docs --name sphinx localhost:5000/sphinx-latexpdf:4.5.0 make latexpdf
+                    sudo cp /docs/_build/latex/devopscapstoneproject.pdf /docs/_build/html/devopscapstoneproject.pdf
                 """
             }
         }
@@ -80,14 +80,6 @@ pipeline {
                 """
             }
         }
-        stage('Remove Dev HTML Container') {
-            steps {
-                sh """
-                    sudo docker container stop sphinx-html
-                    sudo docker container rm sphinx-html
-                """
-            }
-        }        
         stage('PROD: Sphinx Doc Setup') {
             steps {
                 sh """
