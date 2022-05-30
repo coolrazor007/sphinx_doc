@@ -30,10 +30,6 @@ else
 fi
 
 
-curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --yes --dearmor -o /etc/apt/keyrings/hashicorp.gpg
-echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com \
-$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/hashicorp.list > /dev/null
-
 apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io p7zip-full default-jre nano awscli ansible
 docker run hello-world
