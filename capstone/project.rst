@@ -1,7 +1,7 @@
 
 
 
-.. literalinclude:: intro.jinja
+.. literalinclude:: capstone/intro.jinja
 
 ********************************************
 Introduction
