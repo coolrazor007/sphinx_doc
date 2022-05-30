@@ -22,3 +22,4 @@ Indices and tables
    {# usage/installation #}
    {# usage/quickstart #}
    capstone/project
+   capstone/todo
