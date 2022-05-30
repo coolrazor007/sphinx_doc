@@ -36,9 +36,10 @@ pipeline {
         stage('Remove Existing Sphinx Containers') {
             steps {
                 sh """
+                    sudo docker container stop sphinx || true
                     sudo docker container rm sphinx || true 
                     # the 'true' makes this pass every time
-                    # So if the container isn't present and this command fails it doesn't break the build
+                    # So if the container isn't present and these commands fail it doesn't break the build
                 """
             }
         }
@@ -79,6 +80,14 @@ pipeline {
                 """
             }
         }
+        stage('Remove Dev Sphinx Container') {
+            steps {
+                sh """
+                    sudo docker container stop sphinx
+                    sudo docker container rm sphinx
+                """
+            }
+        }        
         stage('PROD: Sphinx Doc Setup') {
             steps {
                 sh """
