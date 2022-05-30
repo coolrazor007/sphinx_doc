@@ -80,11 +80,11 @@ pipeline {
                 """
             }
         }
-        stage('Remove Dev Sphinx Container') {
+        stage('Remove Dev HTML Container') {
             steps {
                 sh """
-                    sudo docker container stop sphinx
-                    sudo docker container rm sphinx
+                    sudo docker container stop sphinx-html
+                    sudo docker container rm sphinx-html
                 """
             }
         }        
