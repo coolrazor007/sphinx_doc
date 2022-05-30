@@ -1,15 +1,8 @@
 
 
-********************************************
-DevOps Capstone - Sphinx CI/CD Pipeline
-********************************************
-
-
-Project: Deployment of a CI/CD Pipeline on an EC2 Instance
-====================================================================================================
 
 Introduction
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+********************************************
 
 This project is about automation and standing up a CI/CD pipeline for Sphinx artifacts.  The tools required for the project are Terraform, Ansible, Docker and Python to deploy the VM to handle the entire pipeline.  
 To add something special I used Jenkins on our class host VM to orchestrate the process and do this.
