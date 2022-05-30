@@ -204,14 +204,16 @@ Once previous build succeeds, click on the green square under "Run Ansible" and 
 * Type 'aws' for the label
 * Launch method: select "Launch agents via SSH"
 * * Host: [type in the IP used earlier]
-* * * Credentials: click add: Jenkins
-* * * * Kind: SSH Username with private key
-* * * * ID: Project-Private2
-* * * * Description: Project-Private Ubuntu username
-* * * * Username: ubuntu
-* * * * Select new key: [GitHub username]
+* * Credentials: click add: Jenkins
+* * * Kind: SSH Username with private key
+* * * ID: Project-Private2
+* * * Description: Project-Private Ubuntu username
+* * * Username: ubuntu
+* * * Private Key: check the radio button for Enter Directly, click Add and paste in private key (ie. cat ~/.ssh/project)
+* * * Click: Add
+* * Select new key: [ubuntu]
 * * Host Key Verification Strategy: select "Non verifying Verification Strategy"
-* Click Save
+* Click: Save
 * Click on the 'aws' agent and verify it is connected
 * Click: Dashboard
 * Click: New Item
@@ -224,6 +226,7 @@ Once previous build succeeds, click on the green square under "Run Ansible" and 
 * * * Schedule: Type in "H/5 * * * *"
 * * At the bottom for Script Path: edit Jenkinsfile to "Jenkinsfile_sphinx_pipeline"
 * * Click Save
+* Click Build Now
 
 
 
