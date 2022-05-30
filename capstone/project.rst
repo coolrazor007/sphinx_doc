@@ -109,6 +109,9 @@ Fill in the access and secret keys with info from your AWS account.  Adjust regi
 
   7z a -p[password with no space next to the “p”] Archive project provider.tf
   rm project provider.tf
+  # edit e-mail and name below to yours (optional)
+  git config --global user.email "razor@example.com"
+  git config --global user.name "Razor"
   git add .
   git commit -m "initial edit"
   git push
@@ -174,8 +177,8 @@ Setting up Jenkins to deploy to AWS
 * * * Credentials: click add: Jenkins
 * * * * Kind: SSH Username with private key
 * * * * ID: Project-Private
-* * * * Description: Project-Private
-* * * Username: [GitHub username]
+* * * * Description: Project-Private github username
+* * * * Username: [GitHub username]
 * * * * Private Key: Paste in contents for project  (ie: cat ~/.ssh/project)
 * * * * Click: Add
 * * * * Select new key: [GitHub username]
@@ -186,22 +189,42 @@ Setting up Jenkins to deploy to AWS
 Jenkins CI/CD Pipeline Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
+Once previous build succeeds, click on the green square under "Run Ansbile" and select "logs".  Copy the IP address shown in the log.  For example from any line that looks like: ubuntu@54.224.31.246  You will need this later.
 
 * Click: Dashboard
 * Click on Manage Jenkins on the left hand side.
 * Under the System Configuration section, click on Manage Nodes and Clouds.
 * On the left hand side, click on New Node.
-* Type 'infra' for the name
+* Type 'aws' for the name
 * Click on the Permanent Agent radio box.
 * Click Create.
 * Write a brief description in the Description field
 * Leave the number of executors to 1
-* Enter /opt/jenkins/agent/ into the Remote root directory text field
-* Type 'infra' for the label
-* Check the box for Use WebSocket
+* Enter /home/ubuntu/agent/ into the Remote root directory text field
+* Type 'aws' for the label
+* Launch method: select "Launch agents via SSH"
+* * Host: [type in the IP used earlier]
+* * * Credentials: click add: Jenkins
+* * * * Kind: SSH Username with private key
+* * * * ID: Project-Private2
+* * * * Description: Project-Private Ubuntu username
+* * * * Username: ubuntu
+* * * * Select new key: [GitHub username]
+* * Host Key Verification Strategy: select "Non verifying Verification Strategy"
 * Click Save
-* Click on the 'builder' agent
+* Click on the 'aws' agent and verify it is connected
+* Click: Dashboard
+* Click: New Item
+* New Item:
+* * Enter a name: Sphinx-CICD-Pipeline
+* * Scroll to the bottom and in the "copy from" type: Sphinx-EC-Deploy
+* * Click: ok
+* Heading: Sphinx-EC2
+* * Under Build Triggers check the "Poll SCM" box
+* * * Schedule: Type in "H/5 * * * *"
+* * At the bottom for Script Path: edit Jenkinsfile to "Jenkinsfile_sphinx_pipeline"
+* * Click Save
+
 
 
 Conclusion
