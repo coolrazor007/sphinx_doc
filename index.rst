@@ -10,8 +10,7 @@ Post-Graduate DevOps Program Capstone
    :caption: Contents:
 
 
-   {# usage/installation #}
-   {# usage/quickstart #}
+
    capstone/project
    capstone/todo
 
