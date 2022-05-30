@@ -75,7 +75,7 @@ Start by making forking my GIT repo and editing files
 * Check the box for “Allow write access”
 * Click: Add key
 * Confirm Github access by putting in your Github password
-* Click: Confirm password
+* Click: Confirm password (may prompt)
 * Click: <> Code (top left)
 * Click: Code (green button center screen)
 * Select: SSH
@@ -170,7 +170,7 @@ Setting up Jenkins to deploy to AWS
 * * Pipeline
 * * * Definition: Pipeline script from SCM
 * * * SCM: Git
-* * * Repository URL: [Github repository, SSH version]
+* * * Repository URL (ignore temporary error): [Github repository, SSH version]
 * * * Credentials: click add: Jenkins
 * * * * Kind: SSH Username with private key
 * * * * ID: Project-Private
@@ -182,6 +182,27 @@ Setting up Jenkins to deploy to AWS
 * * * Under branches: Change "*/master" to "*/main"
 * * * Click Save
 * Click on Build Now
+
+Jenkins CI/CD Pipeline Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+* Click: Dashboard
+* Click on Manage Jenkins on the left hand side.
+* Under the System Configuration section, click on Manage Nodes and Clouds.
+* On the left hand side, click on New Node.
+* Type 'infra' for the name
+* Click on the Permanent Agent radio box.
+* Click Create.
+* Write a brief description in the Description field
+* Leave the number of executors to 1
+* Enter /opt/jenkins/agent/ into the Remote root directory text field
+* Type 'infra' for the label
+* Check the box for Use WebSocket
+* Click Save
+* Click on the 'builder' agent
+
 
 Conclusion
 ~~~~~~~~~~~~~~~~~~~~~~
