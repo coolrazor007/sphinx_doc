@@ -241,15 +241,6 @@ Congratulations you now have an EC2 instance in AWS running a Sphinx CI/CD Pipel
 
 
 
-Appendix A: Files
-~~~~~~~~~~~~~~~~~~~~~~
 
-File: Jenkinsfile
-
-.. literalinclude:: Jenkinsfile
-
-File: provider.tf
-
-.. literalinclude:: provider.tf
 
 
