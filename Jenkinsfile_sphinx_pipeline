@@ -57,7 +57,7 @@ pipeline {
             }
         }
         
-        stage('Run Sphinx') {
+        stage('Build Sphinx Artifacts') {
             steps {
                 sh """
                     sudo docker run --rm -v /docs:/docs --name sphinx localhost:5000/sphinx-latexpdf:4.5.0 make html

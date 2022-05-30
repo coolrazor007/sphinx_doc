@@ -10,6 +10,11 @@ Post-Graduate DevOps Program Capstone
    :caption: Contents:
 
 
+   {# usage/installation #}
+   {# usage/quickstart #}
+   capstone/project
+   capstone/todo
+
 
 Indices and tables
 ==================
@@ -19,7 +24,3 @@ Indices and tables
 * :ref:`search`
 
 
-   {# usage/installation #}
-   {# usage/quickstart #}
-   capstone/project
-   capstone/todo
