@@ -147,7 +147,7 @@ Setting up Jenkins to deploy to AWS
 * Type 'infra' for the label
 * Check the box for Use WebSocket
 * Click Save
-* Click on the 'builder' agent
+* Click on the 'infra' agent
 * You should see text similar to this: java -jar agent.jar -jnlpUrl http://localhost:8080/computer/builder/jenkins-agent.jnlp -secret 91af70f19b975b97eef81d42f624f1c44bl1d216b380905c9c27531d2259d823 -workDir "/home/ubuntu/agent/"
 * Copy the value for '-secret' to the clipboard
 * Open the terminal on the Ubuntu VM
@@ -156,8 +156,8 @@ Setting up Jenkins to deploy to AWS
 .. code-block:: bash
   :linenos:
 
-    wget http://localhost:8080/jnlpJars/agent.jar
-    sudo java -jar agent.jar -jnlpUrl http://localhost:8080/computer/infra/jenkins-agent.jnlp -secret f0d4144849316e8ecab8159edf82da8f08d33410ff5ef361dbbc153cc54fc455 -workDir "/opt/jenkins/agent/"
+    wget -O ~/agent.jar http://localhost:8080/jnlpJars/agent.jar
+    sudo java -jar ~/agent.jar -jnlpUrl http://localhost:8080/computer/infra/jenkins-agent.jnlp -secret f0d4144849316e8ecab8159edf82da8f08d33410ff5ef361dbbc153cc54fc455 -workDir "/opt/jenkins/agent/"
 
 * In Jenkins click on Manage Jenkins on the left hand side.
 * Under the System Configuration section, click on Configure System.
@@ -169,7 +169,7 @@ Setting up Jenkins to deploy to AWS
 * * Enter a name: Sphinx-EC2-Deploy
 * * Click: Pipeline
 * * Click: ok
-* Heading: Sphinx-EC2
+* Heading: Sphinx-EC2-Deploy
 * * Pipeline
 * * * Definition: Pipeline script from SCM
 * * * SCM: Git
@@ -179,17 +179,17 @@ Setting up Jenkins to deploy to AWS
 * * * * ID: Project-Private
 * * * * Description: Project-Private github username
 * * * * Username: [GitHub username]
-* * * * Private Key: Paste in contents for project  (ie: cat ~/.ssh/project)
+* * * * Private Key: Paste in contents for project  (ie: open a new terminal and run: cat ~/.ssh/project)
 * * * * Click: Add
 * * * * Select new key: [GitHub username]
-* * * Under branches: Change "*/master" to "*/main"
+* * * Under "Branches to build": Change "*/master" to "*/main"
 * * * Click Save
 * Click on Build Now
 
 Jenkins CI/CD Pipeline Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Once previous build succeeds, click on the green square under "Run Ansbile" and select "logs".  Copy the IP address shown in the log.  For example from any line that looks like: ubuntu@54.224.31.246  You will need this later.
+Once previous build succeeds, click on the green square under "Run Ansible" and select "logs".  Copy the IP address shown in the log.  For example from any line that looks like: ubuntu@54.224.31.246  You will need this later.
 
 * Click: Dashboard
 * Click on Manage Jenkins on the left hand side.
