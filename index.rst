@@ -9,12 +9,16 @@ Post-Graduate DevOps Program Capstone
    :maxdepth: 3
    :caption: Contents:
 
-   usage/installation
-   usage/quickstart
-   capstone/project
+
+
 Indices and tables
 ==================
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+
+   {# usage/installation #}
+   {# usage/quickstart #}
+   capstone/project
