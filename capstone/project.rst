@@ -1,19 +1,21 @@
 
 
-
+********************************************
 Introduction
 ********************************************
 
 This project is about automation and standing up a CI/CD pipeline for Sphinx artifacts.  The tools required for the project are Terraform, Ansible, Docker and Python to deploy the VM to handle the entire pipeline.  
 To add something special I used Jenkins on our class host VM to orchestrate the process and do this.
 
+********************************************
 Jenkins CI/CD Pipeline
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+********************************************
 
 The pipeline will encompass spinning up a docker container to run Sphinx with the latest code from GitHub for the documentation (coincidentally this very documentation).  Then after it builds the html content the pipeline will deploy it to a staging docker container.  A Python scrypt is ran against the html page to check for a few tests to verify the document rendered and deployed properly.  After this, assuming tests are successful, the pipeline will deploy the artifact to a production html container to host the updated website.
 
+********************************************
 Pre-requisite Jenkins Instance
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+********************************************
 
 This procedure is to be ran on your school Ubuntu VM, but it should work on most Ubuntu VMs.
 
@@ -35,8 +37,9 @@ At this point the Jenkins initial install password will be displayed on the scre
 * Click: Save and Finish
 * Click: Start using Jenkins
 
+********************************************
 SSH Key
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+********************************************
 
 Now we create the SSH keys used for authentication.  Run the following commands on your Ubuntu VM.
 
@@ -52,8 +55,9 @@ Now we create the SSH keys used for authentication.  Run the following commands 
   cat ~/.ssh/project.pub
   #Copy the public key to your local clipboard
 
+********************************************
 Fork GIT Repo
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+********************************************
 
 Start by making forking my GIT repo and editing files
 
@@ -86,9 +90,9 @@ Back in the Ubuntu terminal type the following commands but replace "git@github.
   cp ~/.ssh/project .
   cp ~/.ssh/project.pub .
 
-
+********************************************
 Edit Files
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+********************************************
 
 Edit builder.tf (ie: nano builder.tf)
 Look for  "public_key = "" <--enter in your public key you cat'd in the previous command
@@ -110,9 +114,9 @@ Fill in the access and secret keys with info from your AWS account.  Adjust regi
   git push
 
 
-
+********************************************
 Jenkins Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+********************************************
 
 Setting up Jenkins to deploy to AWS
 
@@ -179,8 +183,9 @@ Setting up Jenkins to deploy to AWS
 * * * Click Save
 * Click on Build Now
 
+********************************************
 Jenkins CI/CD Pipeline Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+********************************************
 
 Once previous build succeeds, click on the green square under "Run Ansible" and select "logs".  Copy the IP address shown in the log.  For example from any line that looks like: ubuntu@54.224.31.246  You will need this later.
 
@@ -222,9 +227,9 @@ Once previous build succeeds, click on the green square under "Run Ansible" and 
 * Click Build Now
 
 
-
+********************************************
 Conclusion
-~~~~~~~~~~~~~~~~~~~~~~
+********************************************
 
 Jenkins should now pull down the code the from GitHub and run it locally.  It will execute the Jenkinsfile which orchestrates the whole thing.  Within the Jenkinsfile are the commands to run Terraform to deploy the EC2 instance with the permissions and networking required.  In addition, Terraform will create a simple inventory file for Ansible to use.  Jenkins then kicks off Ansible to run a playbook to configure the EC2 instance and install the required software.
 
