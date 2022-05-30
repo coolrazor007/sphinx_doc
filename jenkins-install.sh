@@ -22,23 +22,21 @@ then
   #alias packer="/snap/packer/current/bin/packer"
   echo "Ansible that is available with Xenial is not supported by this project"
   exit 1
-else
-  wget -qO - terraform.gpg https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/terraform-archive-keyring.gpg
-  sudo echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/terraform-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" > /etc/apt/sources.list.d/terraform.list
-  apt-get update
-  apt-get install -y terraform packer
 fi
+
+wget -qO - terraform.gpg https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/terraform-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/terraform-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" > /etc/apt/sources.list.d/terraform.list
 
 
 apt-get update
-apt-get install -y docker-ce docker-ce-cli containerd.io p7zip-full default-jre nano awscli ansible
+apt-get install -y docker-ce docker-ce-cli containerd.io p7zip-full default-jre nano awscli ansible terraform packer
 docker run hello-world
 
 docker run -p 8080:8080 -d --name jenkins jenkins/jenkins:lts
 
 echo "Wait for Jenkins container to start"
 
-sleep 20
+sleep 30
 
 echo "Here is your Jenkins initial install password: "
 docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
