@@ -78,13 +78,13 @@ cp ~/.ssh/project.pub .
 #echo $(cat ~/.ssh/project.pub)
 
 PUBLIC_KEY=$(cat ~/.ssh/project.pub)
-BUILDER=$GIT_PATH_FULL"/builder.tf"
+AWS_KEY=$GIT_PATH_FULL"/aws_key.tf"
 
 echo "here's public key var: "
 echo $PUBLIC_KEY
 
-sed -i 's','"sshpublickey"',"$PUBLIC_KEY",'g' $BUILDER
-cat $BUILDER | grep public_key
+sed -i 's','"sshpublickey"',"$PUBLIC_KEY",'g' $AWS_KEY
+cat $AWS_KEY | grep public_key
 
 sed -i 's','"user_access_key"',"$aws_access_key",'g' $PROVIDER
 sed -i 's','"user_secret_key"',"$aws_secret_key",'g' $PROVIDER
