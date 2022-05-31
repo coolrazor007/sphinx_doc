@@ -5,89 +5,99 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '25'))
     }
 
-    // parameters {
-    //     string(name: 'VMNAME', defaultValue: 'NewGenericVM', description: 'Name for the new VM')
-    //     // Parameters automatically become environment variables FYI.  No need to declare them in environment block
-    // }
-
     environment {
-        TIMESTAMP = "$BUILD_TIMESTAMP"
-        _7zipPass  = credentials('Archive-Pass')
-        //AWS_ACCESS_KEY_ID     = credentials('lab_access_key')
-        //AWS_SECRET_ACCESS_KEY = credentials('lab_secret_key')
-        //AWS_TOKEN = credentials('lab_token')
-        //AWS_Creds_File = credentials('AWS_CalTech_creds')                
+        TIMESTAMP = "$BUILD_TIMESTAMP"               
     }
 
     stages {
-        stage('Test and Setup') {
-            steps {
-                echo 'Test and Setup'
-                echo 'Show AWS CLI version'
-                sh 'aws --version'
-                echo 'Show Terraform version'
-                sh 'terraform -version'
-                echo 'Show Packer version'
-                sh 'packer -version'
-                echo 'Show Ansible version'
-                sh 'ansible --version'
-            }
-        }
-        stage('Terraform AWS Creds') {
+        stage('Test and Debug Info') {
             steps {
                 sh """
-                    7z e -p${_7zipPass} Archive.7z -aoa -o./
+                    echo 'Test and Setup'
+                    echo 'Show running user'
+                    whoami                
+                    echo 'Show Java version'
+                    java --version
+                    echo 'Show Docker version'
+                    docker --version
+                    echo 'Show PWD'
+                    pwd
+                    echo 'Show dir contents'
                     ls -la
+                """                
+
+            }
+        }
+        
+        stage('Remove Existing Sphinx Containers') {
+            steps {
+                sh """
+                    sudo docker container stop sphinx || true
+                    sudo docker container rm sphinx || true 
+                    # the 'true' makes this pass every time
+                    # So if the container isn't present and these commands fail it doesn't break the build
                 """
             }
         }
-        stage('Terraform Init') {
+        
+        stage('Sphinx Doc Setup') {
             steps {
                 sh """
-                    terraform init
+                    ls -la
+                    sudo rm /docs/* -R || true #true - won't fail if non-existent
+                    sudo mkdir /docs || true
+                    sudo chmod 777 /docs
+                    sudo cp ./* /docs/ -R
+                    ls -la /docs/
                 """
             }
         }
-        stage('Terraform Validate') {
+        
+        stage('Build Sphinx Artifacts') {
             steps {
                 sh """
-                    terraform validate
+                    sudo docker run --rm -v /docs:/docs --name sphinx localhost:5000/sphinx-latexpdf:4.5.0 make html
+                    sudo docker run --rm -v /docs:/docs --name sphinx localhost:5000/sphinx-latexpdf:4.5.0 make latexpdf
+                    sudo cp /docs/_build/latex/devopscapstoneproject.pdf /docs/_build/html/devopscapstoneproject.pdf
                 """
             }
         }
-        stage('Terraform Deploy EC2 Instance') {
+        stage('Reload Apache') {
             steps {
                 sh """
-                    terraform apply -auto-approve
+                    sudo docker container restart sphinx-html
+                """
+            }            
+        }
+        stage('Run Automated Tests') {
+            steps {
+                sh """
+                    sudo python3 automated_testing.py
                 """
             }
         }
-        stage('Terraform Elastic IP') {
+        stage('PROD: Sphinx Doc Setup') {
             steps {
                 sh """
-                    terraform apply -auto-approve
+                    ls -la
+                    sudo rm /PROD-docs/* -R || true #true - won't fail if non-existent
+                    sudo mkdir /PROD-docs || true
+                    sudo chmod 777 /PROD-docs
+                    sudo cp /docs/* /PROD-docs/ -R
+                    ls -la /PROD-docs/
                 """
             }
         }        
-        stage('Run Ansible') {
+        stage('PROD: Reload Apache') {
             steps {
                 sh """
-                    echo "Checking inventory"
-                    cat inventory.cfg
-                    ansible-playbook -i inventory.cfg main.yml --key-file "project"
+                    sudo docker container restart prod-sphinx-html
                 """
             }
-        }        
-        stage('Terraform AWS Creds Cleanup') {
-            steps {
-                sh """
-                    #ls -la
-                    rm provider.tf project
-                    #ls -la
-                """
-            }
-        }       
+        }          
     }
+
+
     //I'm not sure how this will play with existing terraform deployed objects.  Like it may make Terraform deploy new ones each time since it doesn't save the state
     // post {
     //     always {
