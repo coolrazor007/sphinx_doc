@@ -164,14 +164,17 @@ resource "aws_key_pair" "startingKey" {
 ###############
 # resource block for eip #
 resource "aws_eip" "myeip" {
-  vpc      = true
+  vpc                       = true
+  instance                  = aws_instance.builder.id
+  associate_with_private_ip = aws_instance.builder.private_ip
+  depends_on                = [aws_instance.builder.id]  
 }
 
 # resource block for ec2 and eip (Elastic IP) association #
-resource "aws_eip_association" "eip_assoc" {
-  instance_id   = aws_instance.builder.id
-  allocation_id = aws_eip.myeip.id
-}
+# resource "aws_eip_association" "eip_assoc" {
+#   instance_id   = aws_instance.builder.id
+#   allocation_id = aws_eip.myeip.id
+# }
 
 # generate inventory file for Ansible
 resource "local_file" "inventorybuilder" {
