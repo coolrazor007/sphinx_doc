@@ -15,11 +15,11 @@ owners = ["099720109477"] # Canonical
       values = ["hvm"]
   }
 }
-resource "aws_instance" "builder" {
+resource "aws_instance" "pipeline" {
     ami           = "${data.aws_ami.latest-ubuntu.id}"
     instance_type = "t2.micro"
     key_name= "aws_key"
-    vpc_security_group_ids = [aws_security_group.builder-public-SSH.id,aws_security_group.builder-public-sphinxdoc.id,aws_security_group.builder-public-sphinxdoc-prod.id]
+    vpc_security_group_ids = [aws_security_group.pipeline-public-SSH.id,aws_security_group.pipeline-public-sphinxdoc.id,aws_security_group.pipeline-public-sphinxdoc-prod.id]
     root_block_device {
       delete_on_termination = true
       volume_size = 20
@@ -49,12 +49,12 @@ resource "aws_instance" "builder" {
   }
 
   tags = {
-    Name = "builder"
+    Name = "pipeline"
   }
 
 }
 //You need a security group to open up SSH
-resource "aws_security_group" "builder-public-SSH" {
+resource "aws_security_group" "pipeline-public-SSH" {
   egress = [
     {
       cidr_blocks      = [ "0.0.0.0/0", ]
@@ -82,11 +82,11 @@ resource "aws_security_group" "builder-public-SSH" {
   }
   ]
   tags = {
-    Name = "SSH-builder-Public"
+    Name = "SSH-pipeline-Public"
   }    
 }
 
-resource "aws_security_group" "builder-public-sphinxdoc" {
+resource "aws_security_group" "pipeline-public-sphinxdoc" {
   egress = [
     {
       cidr_blocks      = [ "0.0.0.0/0", ]
@@ -116,11 +116,11 @@ resource "aws_security_group" "builder-public-sphinxdoc" {
 
   
   tags = {
-    Name = "builder-Public-Jenkins"
+    Name = "pipeline-Public-Jenkins"
   }    
 }
 
-resource "aws_security_group" "builder-public-sphinxdoc-prod" {
+resource "aws_security_group" "pipeline-public-sphinxdoc-prod" {
   egress = [
     {
       cidr_blocks      = [ "0.0.0.0/0", ]
@@ -150,16 +150,16 @@ resource "aws_security_group" "builder-public-sphinxdoc-prod" {
 
   
   tags = {
-    Name = "builder-Public-sphinxdoc"
+    Name = "pipeline-Public-sphinxdoc"
   }    
 }
 
 # resource block for eip #
-resource "aws_eip" "myeip" {
+resource "aws_eip" "pipeline" {
   vpc                       = true
-  instance                  = aws_instance.builder.id
-  associate_with_private_ip = aws_instance.builder.private_ip
-  depends_on                = [aws_instance.builder]  
+  instance                  = aws_instance.pipeline.id
+  associate_with_private_ip = aws_instance.pipeline.private_ip
+  depends_on                = [aws_instance.pipeline]  
 }
 
 # resource block for ec2 and eip (Elastic IP) association #

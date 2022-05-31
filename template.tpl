@@ -1,5 +1,7 @@
 
-[builder]
-%{ for ip in builderIP ~}
-ubuntu@${ip}
-%{ endfor ~}
+[jenkins]
+ubuntu@${jenkinsIP}
+
+
+[pipeline]
+ubuntu@${pipelineIP}

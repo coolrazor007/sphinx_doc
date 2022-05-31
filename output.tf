@@ -5,9 +5,10 @@ resource "local_file" "inventorybuilder" {
   content = templatefile("template.tpl",
     {
       #builderIP = aws_instance.builder.*.public_ip
-      builderIP = aws_eip.myeip.*.public_ip
+      jenkinsIP = aws_eip.jenkins.*.public_ip
+      pipelineIP = aws_eip.pipeline.*.public_ip
     }
   )
   filename                  = "inventory.cfg"
-  depends_on                = [aws_eip.myeip,aws_instance.builder]
+  depends_on                = [aws_eip.jenkins,aws_instance.jenkins,aws_eip.pipeline,aws_instance.pipeline]
 }
