@@ -167,7 +167,7 @@ resource "aws_eip" "myeip" {
   vpc                       = true
   instance                  = aws_instance.builder.id
   associate_with_private_ip = aws_instance.builder.private_ip
-  depends_on                = [aws_instance.builder.id]  
+  depends_on                = [aws_instance.builder]  
 }
 
 # resource block for ec2 and eip (Elastic IP) association #
