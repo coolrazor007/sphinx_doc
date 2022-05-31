@@ -23,7 +23,7 @@ This procedure is to be ran on your school Ubuntu VM, but it should work on most
 
 .. code-block:: bash
 
-  wget https://raw.githubusercontent.com/coolrazor007/sphinx_doc/main/infrastructure-deployment.sh
+  wget -O infrastructure-deployment.sh https://raw.githubusercontent.com/coolrazor007/sphinx_doc/main/infrastructure-deployment.sh
   sudo sh infrastructure-deployment.sh
 
 
