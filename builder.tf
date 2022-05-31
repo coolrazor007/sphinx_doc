@@ -184,5 +184,5 @@ resource "local_file" "inventorybuilder" {
     }
   )
   filename                  = "inventory.cfg"
-  depends_on                = [aws_eip.myeip]
+  depends_on                = [aws_eip.myeip,aws_instance.builder]
 }
