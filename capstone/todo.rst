@@ -12,6 +12,7 @@ Security
 #. Lock down /docs/ and /PROD-docs/ instead of 777
 #. Create Jenkins users for Jenkins to use
 #. Add a cleanup for Jenkins that always runs (in the case of failure as well not just success like I have)
+#. Add passphrases to SSH keys
 
 
 

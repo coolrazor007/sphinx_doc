@@ -39,7 +39,7 @@ resource "aws_instance" "builder" {
         type        = "ssh"
         host        = self.public_ip
         user        = "ubuntu"
-        private_key = file("Caltech-Lab-AWS-Key")
+        private_key = file("project")
         timeout     = "4m"
     }    
     inline = [
@@ -156,7 +156,7 @@ resource "aws_security_group" "builder-public-sphinxdoc-prod" {
 
 resource "aws_key_pair" "startingKey" {
   key_name   = "aws_key"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDVxumT/mTWy0R2rqHGtXPkaMvvkWm3YkUOLrS66U97uGSgqVUH/HjxYelpnOup5EbqzExO0s0gjWUQOWrqsYLcRKKqyz/MnjjQkE1O0hhUfmwSfA3buJXX9fr1fgb0SH4HjRJEPioRrhWIOot/j+wowurIL+vRMleot7MTo8U87rk1w/Ots91YSZ6d0hlYyxc+y1VYpio44RlNzc/SU2hLj9cwF6zI6luo9mttxSnglTBDSbSRmxv0Vs5RunCsK2fVZzzFD+MTZ4tINSlNT/AiGnByC54xiCy6fe0ulBNVhUef+Sbupi+YXvYMU+I1GgAyqTI7tTvOo+fItaBeTyOr razor@localhost.localdomain"
+  public_key = "sshpublickey"
 }
 
 ### WARNING ###
