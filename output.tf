@@ -5,8 +5,8 @@ resource "local_file" "inventorybuilder" {
   content = templatefile("template.tpl",
     {
       #builderIP = aws_instance.builder.*.public_ip
-      jenkinsIP = aws_eip.jenkins.*.public_ip
-      pipelineIP = aws_eip.pipeline.*.public_ip
+      jenkinsIP = aws_eip.jenkins.public_ip
+      pipelineIP = aws_eip.pipeline.public_ip
     }
   )
   filename                  = "inventory.cfg"
