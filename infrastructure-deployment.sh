@@ -84,13 +84,13 @@ PROVIDER=$GIT_PATH_FULL"/provider.tf"
 echo "here's public key var: "
 echo $PUBLIC_KEY
 
-sed -i 's','"sshpublickey"',"$PUBLIC_KEY",'g' $SSH_KEY
+sed -i 's','sshpublickey',"$PUBLIC_KEY",'g' $SSH_KEY
 cat $SSH_KEY | grep public_key
 
-sed -i 's','"user_access_key"',"$aws_access_key",'g' $PROVIDER
-sed -i 's','"user_secret_key"',"$aws_secret_key",'g' $PROVIDER
-sed -i 's','"user_token"',"$aws_token",'g' $PROVIDER
-sed -i 's','"us-west-1"',"$aws_region",'g' $PROVIDER
+sed -i 's','user_access_key',"$aws_access_key",'g' $PROVIDER
+sed -i 's','user_secret_key',"$aws_secret_key",'g' $PROVIDER
+sed -i 's','user_token',"$aws_token",'g' $PROVIDER
+sed -i 's','us-west-1',"$aws_region",'g' $PROVIDER
 
 
 echo "done"
