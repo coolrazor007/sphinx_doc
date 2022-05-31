@@ -2,10 +2,17 @@
 
 clear
 
+read -p "Enter Full Name: " fullname
+read -p "Enter E-mail: " EMAIL
+read -p "Enter AWS Access Key: " aws_access_key
+read -p "Enter AWS Secret Key: " aws_secret_key
+read -p "Enter AWS Token: " aws_token
+read -p "Enter AWS Region: " aws_region
+
 REPOS="/usr/repos"
 GIT_PATH="sphinx_doc"
 GIT_PATH_FULL=$REPOS"/"$GIT_PATH
-EMAIL="admin@lab.local"
+#EMAIL="admin@lab.local"
 
 #apt-get update
 #apt-get install -y software-properties-common gnupg2 curl
@@ -32,6 +39,8 @@ fi
 
 cd $GIT_PATH
 
+git reset --hard
+git clean -fd
 git pull
 
 mkdir -p ~/.ssh
@@ -74,10 +83,13 @@ BUILDER=$GIT_PATH_FULL"/builder.tf"
 echo "here's public key var: "
 echo $PUBLIC_KEY
 
-#sed -i 's/$PUBLIC_KEY/sshpublickey/g' $GIT_FULL_PATH/builder.tf
-sed 's','"sshpublickey"',"$PUBLIC_KEY",'g' $BUILDER
+sed -i 's','"sshpublickey"',"$PUBLIC_KEY",'g' $BUILDER
 cat $BUILDER | grep public_key
 
+sed -i 's','"user_access_key"',"$aws_access_key",'g' $PROVIDER
+sed -i 's','"user_secret_key"',"$aws_secret_key",'g' $PROVIDER
+sed -i 's','"user_token"',"$aws_token",'g' $PROVIDER
+sed -i 's','"us-west-1"',"$aws_region",'g' $PROVIDER
 
 
 echo "done"
