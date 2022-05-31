@@ -183,5 +183,6 @@ resource "local_file" "inventorybuilder" {
       builderIP = aws_instance.builder.*.public_ip
     }
   )
-  filename = "inventory.cfg"
+  filename                  = "inventory.cfg"
+  depends_on                = [aws_eip.myeip]
 }
