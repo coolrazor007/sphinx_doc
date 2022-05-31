@@ -1,6 +1,6 @@
 ---
 
-- hosts: builder
+- hosts: jenkins
   #gather_facts: true
   become: yes
 
@@ -10,20 +10,15 @@
   #   apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
 
 
-
-
-
- 
-
   roles:
     - role: './java'
     - role: './docker1_ubuntu'
     - role: './docker_registry'
-    #- role: './jenkins'
-    - role: './jenkins_agent'
-    - role: './sphinx_container'
-    - role: './sphinx_html'
-    - role: './prod_sphinx_html'
+    - role: './jenkins'
+    #- role: './jenkins_agent'
+    #- role: './sphinx_container'
+    #- role: './sphinx_html'
+    #- role: './prod_sphinx_html'
 
 
   # vars:

@@ -1,0 +1,40 @@
+---
+
+
+# - name: Create Mount Directory for Ephillips-Homepage
+#   ansible.builtin.file:
+#     path: /opt/mounts/Ephillips-Homepage
+#     state: directory
+#     mode: '0755'    
+
+# - name: Copy files for Ephillips-Homepage
+#   ansible.builtin.copy:
+#     src: "../files/home/" #"{{ playbook_dir }}/../http-site/home/"
+#     dest: "/opt/mounts/Ephillips-Homepage/"
+
+- name: Jenkins Container
+  docker_container:
+    name: Jenkins
+    image: jenkins/jenkins:lts-jdk11
+    # networks:
+    #   - name: "ContainerNet"
+    exposed_ports: ["8080","50000"]
+    published_ports: ["8081:8080","50000:50000"]
+    # pull: yes
+    # recreate: yes
+    state: started
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    # mounts:
+    #   - source: "/opt/mounts/jenkins_home"
+    #     target: "/var/jenkins_home/"
+        #type: bind  #this apparently can cause permissions issues
+
+
+- name: Show Jenkins install pass
+  shell: docker exec Jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+  register: docker_container_output
+
+- name: Show Jenkins pass
+  debug:
+    msg: "{{ docker_container_output }}"

@@ -1,0 +1,10 @@
+---
+
+
+
+# Docker-related properties
+
+
+external_http: "8080"
+external_https: "8443"
+#external_ssh: "8122"
