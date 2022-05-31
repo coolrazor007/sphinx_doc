@@ -8,6 +8,7 @@ Introduction
 ********************************************
 
 This project is about automation and standing up a CI/CD pipeline for Sphinx artifacts.  The tools required for the project are Terraform, Ansible, Docker and Python to deploy the VM to handle the entire pipeline.  
+To add something special I used Jenkins on our class host VM to orchestrate the process and do this.
 
 ********************************************
 Jenkins CI/CD Pipeline
@@ -23,8 +24,8 @@ This procedure is to be ran on your school Ubuntu VM, but it should work on most
 
 .. code-block:: bash
 
-  wget https://raw.githubusercontent.com/coolrazor007/sphinx_doc/main/infrastructure-deployment.sh
-  sudo sh infrastructure-deployment.sh
+  wget https://raw.githubusercontent.com/coolrazor007/sphinx_doc/main/jenkins-install.sh
+  sudo sh jenkins-install.sh
 
 
 At this point the Jenkins initial install password will be displayed on the screen.  Make note of it as you will use it in the subsequent steps.
