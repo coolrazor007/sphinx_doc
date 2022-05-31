@@ -10,5 +10,11 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/terra
 
 
 apt-get update
-apt-get install -y software-properties-common gnupg2 curl nano awscli ansible terraform
+apt-get install -y software-properties-common gnupg2 curl nano awscli ansible terraform git
+
+mkdir -p ~/repos
+cd ~/repos
+git clone https://github.com/coolrazor007/sphinx_doc.git
+
+
 
