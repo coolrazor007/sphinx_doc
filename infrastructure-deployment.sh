@@ -79,6 +79,7 @@ cp ~/.ssh/project.pub .
 
 PUBLIC_KEY=$(cat ~/.ssh/project.pub)
 SSH_KEY=$GIT_PATH_FULL"/ssh_key.tf"
+PROVIDER=$GIT_PATH_FULL"/provider.tf"
 
 echo "here's public key var: "
 echo $PUBLIC_KEY
