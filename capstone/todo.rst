@@ -13,6 +13,8 @@ Security
 #. Create Jenkins users for Jenkins to use
 #. Add a cleanup for Jenkins that always runs (in the case of failure as well not just success like I have)
 #. Add passphrases to SSH keys
+#. Add security to Docker Registry which will allow for a central regsitry 
+  * More info: (https://gabrieltanner.org/blog/docker-registry)
 
 
 
