@@ -11,17 +11,34 @@
     rule: allow
     port: '50000'
 
+- name: Create Mount Directory for Jenkins
+  ansible.builtin.file:
+    path: /var/jenkins_home
+    state: directory
+    mode: '0755'    
+
+- name: Copy configuration files for Jenkins
+  ansible.builtin.copy:
+    src: "jenkins.yaml" #"{{ playbook_dir }}/../http-site/home/"
+    dest: "/var/jenkins_home/jenkins.yaml"
+
 - name: Jenkins Container
   docker_container:
     name: jenkins
     image:  bitnami/jenkins:latest
     published_ports: ["80:8080","50000:50000"]
     restart_policy: "always"
-    volumes:
-      - jenkins_home:/var/jenkins_home
+    # volumes:
+    #   - jenkins_home:/var/jenkins_home
+    #   ##- /var/jenkins_home:/var/jenkins_home
+    mounts:
+      - source: "/var/jenkins_home"
+        target: "/var/jenkins_home/"
+        type: bind      
     env:
       JENKINS_USERNAME=admin
       JENKINS_PASSWORD=my_password
+      CASC_JENKINS_CONFIG=/var/jenkins_home/jenkins.yaml
 
 - name: Pause for Jenkins to start up
   pause:
