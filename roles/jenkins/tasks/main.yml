@@ -1,21 +1,15 @@
 ---
 
 
-# - name: Create Mount Directory for Ephillips-Homepage
-#   ansible.builtin.file:
-#     path: /opt/mounts/Ephillips-Homepage
-#     state: directory
-#     mode: '0755'    
-
-# - name: Copy files for Ephillips-Homepage
-#   ansible.builtin.copy:
-#     src: "../files/home/" #"{{ playbook_dir }}/../http-site/home/"
-#     dest: "/opt/mounts/Ephillips-Homepage/"
-
-- name: Allow HTTP
+- name: UFW - Allow HTTP
   community.general.ufw:
     rule: allow
-    name: HTTP
+    port: '80'
+
+- name: UFW - Allow Jenkins Communication
+  community.general.ufw:
+    rule: allow
+    port: '50000'
 
 - name: Jenkins Container
   docker_container:
@@ -28,4 +22,8 @@
     env:
       JENKINS_USERNAME=admin
       JENKINS_PASSWORD=my_password
+
+- name: Pause for Jenkins to start up
+  pause:
+    seconds: 30
 

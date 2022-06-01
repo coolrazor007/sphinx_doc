@@ -1,0 +1,11 @@
+---
+
+- name: UFW - Allow everything and enable UFW
+  community.general.ufw:
+    state: enabled
+    policy: allow
+
+- name: UFW - Allow SSH
+  community.general.ufw:
+    rule: allow
+    port: '22'

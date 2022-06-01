@@ -1,0 +1,7 @@
+---
+
+- name: UFW - Default Deny everything
+  community.general.ufw:
+    state: enabled
+    policy: deny
+

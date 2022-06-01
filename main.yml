@@ -1,27 +1,32 @@
 ---
 
-- hosts: jenkins
-  #gather_facts: true
+- hosts: jenkins,pipeline
   become: yes
 
-  # tasks: 
-  #   #MUST run this on an initial deploy of Ubuntu.  Couldn't find any packages otherwise.  Odd that this image didn't have updated sources already
-  # - name: Update apt-get repo and cache
-  #   apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
-
-
   roles:
+    - role: './firewall_start'
     - role: './java'
     - role: './docker1_ubuntu'
     - role: './docker_registry'
-    - role: './jenkins'
+
+- hosts: pipeline
+  become: yes
+
+  roles:
     #- role: './jenkins_agent'
-    #- role: './sphinx_container'
-    #- role: './sphinx_html'
-    #- role: './prod_sphinx_html'
+    - role: './sphinx_container'
+    - role: './sphinx_html'
+    - role: './prod_sphinx_html'
+
+- hosts: jenkins
+  become: yes
+
+  roles:
+    - role: './jenkins'
 
 
-  # vars:
-  #   #System Settings
-  #   - php_modules: [ 'php-curl', 'php-gd', 'php-mbstring', 'php-xml', 'php-xmlrpc', 'php-soap', 'php-intl', 'php-zip' ]
+- hosts: jenkins,pipeline
+  become: yes
 
+  roles:
+    - role: './firewall_lockdown'

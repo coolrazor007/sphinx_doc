@@ -1,5 +1,10 @@
 ---
 
+- name: UFW - Allow HTTP on 80
+  community.general.ufw:
+    rule: allow
+    port: '80'
+
 - name: Pull an image
   community.docker.docker_image:
     name: httpd:2.4.53

@@ -1,12 +1,14 @@
 ---
 
+- name: UFW - Allow HTTP on 8080
+  community.general.ufw:
+    rule: allow
+    port: '8080'
+
 - name: Pull an image
   community.docker.docker_image:
     name: httpd:2.4.53
     source: pull
-    # Select platform for pulling. If not specified, will pull whatever docker prefers.
-    # pull:
-    #   platform: amd64
 
 - name: Push to local registry
   community.docker.docker_image:
@@ -23,8 +25,4 @@
     image: localhost:5000/httpd:2.4.53
     volumes:
       - /docs/_build/html/:/usr/local/apache2/htdocs/
-#   register: docker_container_output
 
-# - name: Show Container Status
-#   debug:
-#     msg: "{{ docker_container_output.container }}"
