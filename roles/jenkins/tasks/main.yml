@@ -19,8 +19,8 @@
 
 - name: Copy configuration files for Jenkins
   ansible.builtin.copy:
-    src: "jenkins.yaml" #"{{ playbook_dir }}/../http-site/home/"
-    dest: "/var/jenkins_home/jenkins.yaml"
+    src: "jenkins.yml" #"{{ playbook_dir }}/../http-site/home/"
+    dest: "/var/jenkins_home/jenkins.yml"
 
 - name: Jenkins Container
   docker_container:
@@ -38,9 +38,22 @@
     env:
       JENKINS_USERNAME=admin
       JENKINS_PASSWORD=my_password
-      CASC_JENKINS_CONFIG=/var/jenkins_home/jenkins.yaml
+      CASC_JENKINS_CONFIG=/var/jenkins_home/jenkins.yml
 
 - name: Pause for Jenkins to start up
   pause:
     seconds: 30
 
+- name: Install configuration-as-code plugin for Jenkins
+  community.general.jenkins_plugin:
+    name: configuration-as-code
+    url_username: admin
+    url_password: my_password
+    url: http://localhost:80
+
+- name: Restart Jenkins container
+  community.docker.docker_container:
+    name: jenkins
+    #image: someuser/appimage
+    state: started
+    restart: yes    

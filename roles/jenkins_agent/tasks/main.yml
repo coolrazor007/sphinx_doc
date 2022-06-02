@@ -1,16 +1,6 @@
 ---
 
-# preliminary file for installing a Jenkins agent
 
-
-# Needed to all ubuntu user to use sudo in jenkins
-- name: Allow 'sudo' group to have passwordless sudo
-  lineinfile:
-    dest: /etc/sudoers
-    state: present
-    regexp: '^%sudo'
-    line: '%sudo ALL=(ALL) NOPASSWD: ALL'
-    validate: 'visudo -cf %s'
 
 - name: Install BeautifulSoup4 python package
   pip:
