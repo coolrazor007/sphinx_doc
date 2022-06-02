@@ -22,6 +22,11 @@
     src: "jenkins.yml" #"{{ playbook_dir }}/../http-site/home/"
     dest: "/var/jenkins_home/jenkins.yml"
 
+- name: Copy SSH key for Jenkins credential
+  ansible.builtin.copy:
+    src: "project"
+    dest: "/var/jenkins_home/project"
+
 - name: Jenkins Container
   docker_container:
     name: jenkins
@@ -42,7 +47,7 @@
 
 - name: Pause for Jenkins to start up
   pause:
-    seconds: 120 #really does take this long on t2.micro, otherwise the next task fails to install plugin
+    seconds: 90 #really does take this long on t2.micro, otherwise the next task fails to install plugin
 
 - name: Install configuration-as-code plugin for Jenkins
   community.general.jenkins_plugin:
@@ -62,4 +67,4 @@
   community.docker.docker_container:
     name: jenkins
     state: started
-    restart: yes    
+    restart: yes
