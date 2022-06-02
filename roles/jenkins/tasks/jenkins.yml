@@ -1,3 +1,16 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - basicSSHUserPrivateKey:
+          id: "private-project"
+          privateKeySource:
+            directEntry:
+              privateKey: "{0ycC3LGL>
+          scope: GLOBAL
+          username: "ubuntu"
+jenkins:
+  numExecutors: 0
 unclassified:
   location:
     adminAddress: "test <nobody@nowhere>"

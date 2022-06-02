@@ -15,7 +15,7 @@
   ansible.builtin.file:
     path: /var/jenkins_home
     state: directory
-    mode: '0755'    
+    mode: '0775'    
 
 - name: Copy configuration files for Jenkins
   ansible.builtin.copy:
@@ -42,7 +42,7 @@
 
 - name: Pause for Jenkins to start up
   pause:
-    seconds: 30
+    seconds: 120 #really does take this long on t2.micro, otherwise the next task fails to install plugin
 
 - name: Install configuration-as-code plugin for Jenkins
   community.general.jenkins_plugin:
@@ -51,9 +51,15 @@
     url_password: my_password
     url: http://localhost:80
 
+- name: Install configuration-as-code-groovy plugin for Jenkins
+  community.general.jenkins_plugin:
+    name: configuration-as-code-groovy
+    url_username: admin
+    url_password: my_password
+    url: http://localhost:80
+
 - name: Restart Jenkins container
   community.docker.docker_container:
     name: jenkins
-    #image: someuser/appimage
     state: started
     restart: yes    
