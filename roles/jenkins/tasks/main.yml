@@ -43,6 +43,7 @@
     env:
       JENKINS_USERNAME=admin
       JENKINS_PASSWORD=my_password
+      JENKINS_HOME=/var/jenkins_home
       CASC_JENKINS_CONFIG=/var/jenkins_home/jenkins.yml
 
 - name: Pause for Jenkins to start up
