@@ -15,6 +15,7 @@ Security
 #. Add passphrases to SSH keys
 #. Add security to Docker Registry which will allow for a central regsitry 
   * More info: (https://gabrieltanner.org/blog/docker-registry)
+#. Fix permissions for /var/jenkins_home that are 777 currently.  Lock it down without breaking
 
 
 
