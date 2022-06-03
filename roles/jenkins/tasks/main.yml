@@ -45,13 +45,14 @@
     #image:  jenkins/jenkins:lts-jdk11
     published_ports: ["80:8080","50000:50000"]
     restart_policy: "always"
-    # volumes:
-    #   - jenkins_home:/var/jenkins_home
-    #   ##- /var/jenkins_home:/var/jenkins_home
-    mounts:
-      - source: "/var/jenkins_home"
-        target: "/bitnami/jenkins/home/"
-        type: bind      
+    volumes:
+      - /var/jenkins_home:/bitnami/jenkins/home
+      ##- jenkins_home:/var/jenkins_home
+      ##- /var/jenkins_home:/var/jenkins_home
+    # mounts:
+    #   - source: "/var/jenkins_home"
+    #     target: "/bitnami/jenkins/home/"
+    #     type: bind      
     env:
       JENKINS_USERNAME=admin
       JENKINS_PASSWORD=my_password
