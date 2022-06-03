@@ -15,11 +15,11 @@
   ansible.builtin.file:
     path: /var/jenkins_home
     state: directory
-    mode: '0775'    
+    mode: '0777'    
 
-- name: Copy configuration files for Jenkins
+- name: Copy configuration file for Jenkins
   ansible.builtin.copy:
-    src: "jenkins.yml" #"{{ playbook_dir }}/../http-site/home/"
+    src: "jenkins.yml"
     dest: "/var/jenkins_home/jenkins.yml"
 
 - name: Copy SSH key for Jenkins credential
@@ -27,11 +27,22 @@
     src: "project"
     dest: "/var/jenkins_home/project"
 
+- name: Create Directory for Jenkins Pipeline
+  ansible.builtin.file:
+    path: /var/jenkins_home/jobs/pipeline
+    state: directory
+    mode: '0777'
+
+- name: Copy config for Jenkins Jenkins Pipeline
+  ansible.builtin.copy:
+    src: "pipeline_config.xml"
+    dest: "/var/jenkins_home/jobs/pipeline/config.xml"
+
 - name: Jenkins Container
   docker_container:
     name: jenkins
-    #image:  bitnami/jenkins:latest
-    image:  jenkins/jenkins:lts-jdk11
+    image:  bitnami/jenkins:latest
+    #image:  jenkins/jenkins:lts-jdk11
     published_ports: ["80:8080","50000:50000"]
     restart_policy: "always"
     # volumes:
@@ -44,8 +55,7 @@
     env:
       JENKINS_USERNAME=admin
       JENKINS_PASSWORD=my_password
-      JENKINS_HOME=/var/jenkins_home
-      CASC_JENKINS_CONFIG=/var/jenkins_home/jenkins.yml
+      CASC_JENKINS_CONFIG=/bitnami/jenkins/home/jenkins.yml
       #JENKINS_SKIP_BOOTSTRAP=yes
 
 - name: Pause for Jenkins to start up
