@@ -15,7 +15,7 @@
   ansible.builtin.file:
     path: /var/jenkins_home
     state: directory
-    mode: '0777'    
+    mode: '0777'
 
 - name: Copy configuration file for Jenkins
   ansible.builtin.copy:
@@ -27,16 +27,10 @@
     src: "project"
     dest: "/var/jenkins_home/project"
 
-- name: Create Directory for Jenkins Pipeline
-  ansible.builtin.file:
-    path: /var/jenkins_home/jobs/pipeline
-    state: directory
-    mode: '0777'
-
 - name: Copy config for Jenkins Jenkins Pipeline
   ansible.builtin.copy:
     src: "pipeline_config.xml"
-    dest: "/var/jenkins_home/jobs/pipeline/config.xml"
+    dest: "/var/jenkins_home/pipeline_config.xml"
 
 - name: Jenkins Container
   docker_container:
@@ -45,14 +39,6 @@
     #image:  jenkins/jenkins:lts-jdk11
     published_ports: ["80:8080","50000:50000"]
     restart_policy: "always"
-    volumes:
-      - /var/jenkins_home:/bitnami/jenkins/home
-      ##- jenkins_home:/var/jenkins_home
-      ##- /var/jenkins_home:/var/jenkins_home
-    # mounts:
-    #   - source: "/var/jenkins_home"
-    #     target: "/bitnami/jenkins/home/"
-    #     type: bind      
     env:
       JENKINS_USERNAME=admin
       JENKINS_PASSWORD=my_password
@@ -62,6 +48,19 @@
 - name: Pause for Jenkins to start up
   pause:
     seconds: 90 #really does take this long on t2.micro, otherwise the next task fails to install plugin
+
+- name: Copy SSH
+  shell: docker cp /var/jenkins_home/project jenkins:/bitnami/jenkins/home/project
+
+- name: Copy Jenkins Config
+  shell: docker cp /var/jenkins_home/jenkins.yml jenkins:/bitnami/jenkins/home/jenkins.yml
+
+- name: mkdir2
+  shell: docker exec -it jenkins mkdir /bitnami/jenkins/home/jobs/pipeline
+
+- name: Copy pipeline
+  shell: docker cp /var/jenkins_home/pipeline_config.xml jenkins:/bitnami/jenkins/home/jobs/pipeline/config.xml
+
 
 - name: Install configuration-as-code plugin for Jenkins
   community.general.jenkins_plugin:
