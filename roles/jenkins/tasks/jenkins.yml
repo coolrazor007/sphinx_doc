@@ -20,7 +20,7 @@ jenkins:
       launcher:
         ssh:
           credentialsId: "private-project"
-          host: "54.145.223.129"
+          host: "18.204.139.143"
           port: 22
           sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
       name: "pipeline"
