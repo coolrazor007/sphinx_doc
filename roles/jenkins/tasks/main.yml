@@ -50,7 +50,7 @@
     #   ##- /var/jenkins_home:/var/jenkins_home
     mounts:
       - source: "/var/jenkins_home"
-        target: "/var/jenkins_home/"
+        target: "/bitnami/jenkins/home/"
         type: bind      
     env:
       JENKINS_USERNAME=admin
