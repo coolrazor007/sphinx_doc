@@ -31,6 +31,7 @@
   docker_container:
     name: jenkins
     image:  bitnami/jenkins:latest
+    #image:  jenkins/jenkins:latest
     published_ports: ["80:8080","50000:50000"]
     restart_policy: "always"
     # volumes:
@@ -45,6 +46,7 @@
       JENKINS_PASSWORD=my_password
       JENKINS_HOME=/var/jenkins_home
       CASC_JENKINS_CONFIG=/var/jenkins_home/jenkins.yml
+      JENKINS_SKIP_BOOTSTRAP=yes
 
 - name: Pause for Jenkins to start up
   pause:
