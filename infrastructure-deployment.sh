@@ -93,6 +93,9 @@ sed -i 's','us-west-1',"$aws_region",'g' $TF_PROVIDER
 terraform init
 terraform apply --auto-approve
 
+# Found that you need to wait a tiny bit for EC2 instances to boot up or Ansible may fail
+sleep 10
+
 ansible-playbook -i inventory.cfg main.yml --key-file "project"
 
 
