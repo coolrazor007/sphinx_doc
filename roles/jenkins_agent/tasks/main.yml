@@ -1,7 +1,0 @@
----
-
-
-
-- name: Install BeautifulSoup4 python package
-  pip:
-    name: BeautifulSoup4

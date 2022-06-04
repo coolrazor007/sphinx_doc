@@ -1,5 +1,6 @@
 ---
 
+### Initial Setup of both hosts ###
 - hosts: jenkins,pipeline
   become: yes
 
@@ -9,22 +10,23 @@
     - role: './docker1_ubuntu'
     - role: './docker_registry'
 
+### Setting up the pipeline host (AKA Jenkins agent host) ###
 - hosts: pipeline
   become: yes
 
   roles:
-    #- role: './jenkins_agent'
     - role: './sphinx_container'
     - role: './sphinx_html'
     - role: './prod_sphinx_html'
 
+### Setting up Jenkins host now that the pipeline host is ready (Jenkins will try to connect to it) ###
 - hosts: jenkins
   become: yes
 
   roles:
     - role: './jenkins'
 
-
+### Locking down both hosts ###
 - hosts: jenkins,pipeline
   become: yes
 
