@@ -19,7 +19,7 @@ resource "local_file" "jenkins_config" {
   content = templatefile("roles/jenkins/tasks/jenkins.tpl",
     {
       pipelineIP = aws_eip.pipeline.public_ip
-      privateKeyVar = "${readFile:/bitnami/jenkins/home/project}"
+      privateKeyVar = "$${readFile$:/bitnami/jenkins/home/project}"
     }
   )
   filename                  = "roles/jenkins/tasks/jenkins.yml"
