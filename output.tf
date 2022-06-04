@@ -19,7 +19,7 @@ resource "local_file" "jenkins_config" {
   content = templatefile("roles/jenkins/tasks/jenkins.tpl",
     {
       pipelineIP = aws_eip.pipeline.public_ip
-      privateKeyVar = "$${readFile$:/bitnami/jenkins/home/project}"
+      privateKeyVar = "$${readFile:/bitnami/jenkins/home/project}"  #heads up I'm escaping $ with $.  We need this for Jenkins to load the SSH private key later
     }
   )
   filename                  = "roles/jenkins/tasks/jenkins.yml"
