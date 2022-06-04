@@ -23,7 +23,7 @@ apt-get install -y software-properties-common gnupg2 curl nano awscli ansible te
 mkdir -p $REPOS
 cd $REPOS
 
-if [ ! -d $GIT_FULL_PATH ]
+if [ ! -d $GIT_PATH_FULL ]
 then
     echo "Directory $GIT_PATH_FULL DOES NOT exist."
     git clone https://github.com/coolrazor007/sphinx_doc.git
