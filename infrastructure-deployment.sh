@@ -83,7 +83,7 @@ echo "here's public key var: "
 echo $PUBLIC_KEY
 
 sed -i 's','sshpublickey',"$PUBLIC_KEY",'g' $TF_SSH_KEY
-cat $SSH_KEY | grep public_key
+cat $TF_SSH_KEY | grep public_key
 
 sed -i 's','user_access_key',"$aws_access_key",'g' $TF_PROVIDER
 sed -i 's','user_secret_key',"$aws_secret_key",'g' $TF_PROVIDER
@@ -91,7 +91,7 @@ sed -i 's','user_token',"$aws_token",'g' $TF_PROVIDER
 sed -i 's','us-west-1',"$aws_region",'g' $TF_PROVIDER
 
 terraform init
-terraform apply --autoapprove
+terraform apply --auto-approve
 
 ansible-playbook -i inventory.cfg main.yml --key-file "project"
 
