@@ -6,7 +6,7 @@ credentials:
           id: "private-project"
           privateKeySource:
             directEntry:
-              privateKey: "replace_with_private_key_var" #Terraform catches on this if you put the correct syntax.  Use Bash/Sed to edit after
+              privateKey: "${privateKeyVar}" #Terraform catches on this if you put the correct syntax.  ##Use Bash/Sed to edit after##  Trying TF to put in the correct var
           scope: GLOBAL
           username: "ubuntu"
 jenkins:
