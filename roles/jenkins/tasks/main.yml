@@ -27,7 +27,7 @@
     src: "project"
     dest: "/var/jenkins_home/project"
 
-- name: Copy config for Jenkins Jenkins Pipeline
+- name: Copy config for Jenkins Pipeline
   ansible.builtin.copy:
     src: "pipeline_config.xml"
     dest: "/var/jenkins_home/pipeline_config.xml"
@@ -55,7 +55,7 @@
 - name: Copy Jenkins Config
   shell: docker cp /var/jenkins_home/jenkins.yml jenkins:/bitnami/jenkins/home/jenkins.yml
 
-- name: mkdir2
+- name: mkdir for pipeline job in jenkins container
   shell: docker exec -it jenkins mkdir /bitnami/jenkins/home/jobs/pipeline
 
 - name: Copy pipeline
