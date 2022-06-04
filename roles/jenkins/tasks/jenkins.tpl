@@ -1,0 +1,32 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - basicSSHUserPrivateKey:
+          id: "private-project"
+          privateKeySource:
+            directEntry:
+              privateKey: "${readFile:/var/jenkins_home/project}"
+          scope: GLOBAL
+          username: "ubuntu"
+jenkins:
+  numExecutors: 0
+  labelAtoms:
+  - name: "built-in"
+  - name: "pipeline"
+  nodes:
+  - permanent:
+      labelString: "pipeline"
+      launcher:
+        ssh:
+          credentialsId: "private-project"
+          host: "${pipelineIP}"
+          port: 22
+          sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+      name: "pipeline"
+      remoteFS: "/home/ubuntu/agent"
+      retentionStrategy: "always"
+unclassified:
+  location:
+    adminAddress: "test <nobody@nowhere>"
+    url: "http://localhost:8080/"
