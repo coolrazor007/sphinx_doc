@@ -25,14 +25,14 @@ cd $REPOS
 
 if [ ! -d $GIT_FULL_PATH ]
 then
-    echo "Directory $GIT_FULL_PATH DOES NOT exist."
+    echo "Directory $GIT_PATH_FULL DOES NOT exist."
     git clone https://github.com/coolrazor007/sphinx_doc.git
 else
         echo "GIT Repo Already Cloned"
 fi
 #git clone https://github.com/coolrazor007/sphinx_doc.git --quiet
 
-cd $GIT_PATH
+cd $GIT_PATH_FULL
 
 git config --local user.name "$FULLNAME"
 git config --local user.email "$EMAIL"
