@@ -94,6 +94,7 @@ terraform init
 terraform apply --auto-approve
 
 # Found that you need to wait a tiny bit for EC2 instances to boot up or Ansible may fail
+echo "pausing for 10 seconds before continuing with Ansible"
 sleep 10
 
 ansible-playbook -i inventory.cfg main.yml --key-file "project"
