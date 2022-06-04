@@ -6,7 +6,7 @@ credentials:
           id: "private-project"
           privateKeySource:
             directEntry:
-              privateKey: "${readFile:/var/jenkins_home/project}"
+              privateKey: "replace_with_private_key_var" #Terraform catches on this if you put the correct syntax.  Use Bash/Sed to edit after
           scope: GLOBAL
           username: "ubuntu"
 jenkins:
