@@ -14,8 +14,9 @@ Security
 #. Add a cleanup for Jenkins that always runs (in the case of failure as well not just on success like I have)
 #. Add passphrases to SSH keys
 #. Add security to Docker Registry which will allow for a central registry 
-# #. More info: (https://gabrieltanner.org/blog/docker-registry)
+#. #. More info: (https://gabrieltanner.org/blog/docker-registry)
 #. Figure out a properly secure method of having the user put in a password for Jenkins that doesn't save the password in a sketchy way
+#. Add SSL to websites
 
 
 
