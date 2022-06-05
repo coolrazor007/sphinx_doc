@@ -4,7 +4,7 @@
 ---Dev Container---
 
 HTML Version: 
-http://${pipelineIP}:8080/
+http://${pipelineIP}:8080/capstone/project.html#what-just-happend
 
 PDF Version: 
 http://${pipelineIP}:8080/simplilearncaltechdevopscapstoneproject.pdf

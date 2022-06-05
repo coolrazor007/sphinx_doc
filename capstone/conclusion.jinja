@@ -3,11 +3,13 @@
 Conclusion
 ********************************************
 
-The pipeline will encompass spinning up a docker container to run Sphinx with the latest code from GitHub for the documentation (coincidentally this very documentation).  Then after it builds the html content the pipeline will deploy it to a staging docker container.  A Python scrypt is ran against the html page to check for a few tests to verify the document rendered and deployed properly.  After this, assuming tests are successful, the pipeline will deploy the artifact to a production html container to host the updated website.
-
-
-Jenkins should now pull down the code the from GitHub and run it locally.  It will execute the Jenkinsfile which orchestrates the whole thing.  Within the Jenkinsfile are the commands to run Terraform to deploy the EC2 instance with the permissions and networking required.  In addition, Terraform will create a simple inventory file for Ansible to use.  Jenkins then kicks off Ansible to run a playbook to configure the EC2 instance and install the required software.
-
-After all of this you can navigate to the IP of the EC2 VM on port 80 and hit Wordpress.  As this is just for initial deployment you will want to secure the EC2 instance to only be accessible via your public or some other security mechanism.
+The pipeline will now continuously check your GitHub repo every 5 minutes and pull down the main branch if it detects any changes.  Upon which it will render the document and save the artifacts to /docs/.  At that point, the Dev website will reload with the latest documentation you've provided and then use python for very basic error checking (title and that the appendix is there).  If all passes then the pipeline will deploy the artifacts to prod and update the production website with the latest documentation.
 
 Congratulations you now have an EC2 instance in AWS running a Sphinx CI/CD Pipeline.
+
+Why is this so great?  Because you can now edit the documentation however you want and (with a few exceptions) it the pipeline will just update the website.  Again in the context of our project with the ficticious company, we can now update the website and print media with 10 seconds after pushing to main on GitHub and the 5 minute polling hits.  Also, we can now setup required approvers for pull requests so that the correct people are required for any documentation edits to make it to prod.  No more sneaking in fixes/edits from other teams.
+
+Unique selling points (USP) for this project are that you can now write re-usable/modular/Document-as-Code documentation and have it in a working pipeline ready to go.  Often documentation is overlooked but it is very important and having this tool means that you can automate a lot of it.  This is a springboard to more customized use cases.  Imagine creating reports within this tool by doing a database query and printing out certain pages based on what the query finds?  Instead of having a user hand write long documentation on a per using basis you can now automate it with this pipeline as your basis.
+
+I really enjoyed working on this capstone and can see many improvements I'd like to make.  In fact, in this document I made a list of security and regular improvements I'd like to incorporate later on.  Until next time, happy coding!
+
