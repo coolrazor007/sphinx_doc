@@ -43,11 +43,11 @@
       JENKINS_USERNAME=admin
       JENKINS_PASSWORD=my_password
       CASC_JENKINS_CONFIG=/bitnami/jenkins/home/jenkins.yml
-      #JENKINS_SKIP_BOOTSTRAP=yes
+      #JENKINS_SKIP_BOOTSTRAP=yes  #<--- apparently not needed because we specify the username/pass?
 
 - name: Pause for Jenkins to start up
   pause:
-    seconds: 90 #really does take this long on t2.micro, otherwise the next task fails to install plugin
+    seconds: 120 #really does take this long on t2.micro, otherwise the next task fails to install plugin because Jenkins isn't ready
 
 - name: Copy SSH
   shell: docker cp /var/jenkins_home/project jenkins:/bitnami/jenkins/home/project
