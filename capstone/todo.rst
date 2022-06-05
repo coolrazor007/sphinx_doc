@@ -26,5 +26,6 @@ Improvements
 #. Create Docker Compose file (dockerfile) for Jenkins + custom agent
 #. Figure out why SSH remote was broken in Terraform code for Ubuntu Jammy but worked in Ubuntu Impish
 #. Add user input validation to the infrastructure-deployment.sh script to protect user from themselves
+#. Make script work with private repos on GitHub (I actually did that by hand on an earlier version of this project.  You can see the on-prem tag in GitHub)
 
 

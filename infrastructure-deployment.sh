@@ -79,7 +79,7 @@ cp ~/.ssh/project.pub .
 PUBLIC_KEY=$(cat ~/.ssh/project.pub)
 TF_SSH_KEY=$GIT_PATH_FULL"/ssh_key.tf"
 TF_PROVIDER=$GIT_PATH_FULL"/provider.tf"
-PIPELINE_CONFIG=$GIT_PATH_FULL"/roles/jenkins/pipeline_config.xml"
+PIPELINE_CONFIG=$GIT_PATH_FULL"/roles/jenkins/tasks/pipeline_config.xml"
 
 echo "here's public key var: "
 echo $PUBLIC_KEY
@@ -102,8 +102,9 @@ sleep 10
 
 ansible-playbook -i inventory.cfg main.yml --key-file "project"
 
+cat $GIT_PATH_FULL/weblinks
 
-echo "all done"
+echo "all done - see info immediately above for link information"
 
 
 
