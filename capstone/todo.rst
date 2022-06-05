@@ -25,5 +25,6 @@ Improvements
 #. Create generic Jenkins Agent container with Terraform, Packer, Ansible, Python and awscli (a lot of headaches trying to make scripts work with multiple environments)
 #. Create Docker Compose file (dockerfile) for Jenkins + custom agent
 #. Figure out why SSH remote was broken in Terraform code for Ubuntu Jammy but worked in Ubuntu Impish
+#. Add user input validation to the infrastructure-deployment.sh script to protect user from themselves
 
 

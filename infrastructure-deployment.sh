@@ -4,6 +4,7 @@ clear
 
 read -p "Enter Full Name: " FULLNAME
 read -p "Enter E-mail: " EMAIL
+read -p "GitHub Repo: " GITHUB
 read -p "Enter AWS Access Key: " aws_access_key
 read -p "Enter AWS Secret Key: " aws_secret_key
 read -p "Enter AWS Token: " aws_token
@@ -26,7 +27,7 @@ cd $REPOS
 if [ ! -d $GIT_PATH_FULL ]
 then
     echo "Directory $GIT_PATH_FULL DOES NOT exist."
-    git clone https://github.com/coolrazor007/sphinx_doc.git
+    git clone $GITHUB
 else
         echo "GIT Repo Already Cloned"
 fi
@@ -78,6 +79,7 @@ cp ~/.ssh/project.pub .
 PUBLIC_KEY=$(cat ~/.ssh/project.pub)
 TF_SSH_KEY=$GIT_PATH_FULL"/ssh_key.tf"
 TF_PROVIDER=$GIT_PATH_FULL"/provider.tf"
+PIPELINE_CONFIG=$GIT_PATH_FULL"/roles/jenkins/pipeline_config.xml"
 
 echo "here's public key var: "
 echo $PUBLIC_KEY
@@ -89,6 +91,7 @@ sed -i 's','user_access_key',"$aws_access_key",'g' $TF_PROVIDER
 sed -i 's','user_secret_key',"$aws_secret_key",'g' $TF_PROVIDER
 sed -i 's','user_token',"$aws_token",'g' $TF_PROVIDER
 sed -i 's','us-west-1',"$aws_region",'g' $TF_PROVIDER
+sed -i 's','GIT-REPO',"$GITHUB",'g' $PIPELINE_CONFIG
 
 terraform init
 terraform apply --auto-approve
