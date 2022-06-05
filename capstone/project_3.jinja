@@ -26,39 +26,39 @@ Requirements:
 * Use the required plugins to run the build creation on a containerized platform
 * * **DONE**
 * Create and run the Docker image which will have the application artifacts
-**We are using the Sphinx image to build the artifacts (HTML and PDF)**
+* * **We are using the Sphinx image to build the artifacts (HTML and PDF)**
 * Execute the automated tests on the created build
-**Custom Python script that runs unittest library with basic tests against the HTML version: filename: "automated_testing.py"**
+* * **Custom Python script that runs unittest library with basic tests against the HTML version: filename: "automated_testing.py"**
 * Create your private repository and push the Docker image into the repository
-**On both of the EC2 instance I have installed the Docker Registry container and pushed images to them that we use**
+* * **On both of the EC2 instance I have installed the Docker Registry container and pushed images to them that we use**
 * Expose the application on the respective ports so that the user can access the deployed application
-**Ports 80 and 8080 are open and used for this purpose.  The links for the websites are displayed by the script and documenation**
+* * **Ports 80 and 8080 are open and used for this purpose.  The links for the websites are displayed by the script and documenation**
 * Remove container stack after completing the job
-**The Sphinx Container is running during the pipeline and stops after it completes rendering the document.  I've included -rm so that it removes itself as well**
+* * **The Sphinx Container is running during the pipeline and stops after it completes rendering the document.  I've included -rm so that it removes itself as well**
 
 
 The following tools must be used:
 ===================================================
 
-* EC2  **YES**
-* Jenkins  **YES**
-* Docker **YES**
-* Git  **GitHub/YES**
+* EC2 - **YES**
+* Jenkins - **YES**
+* Docker - **YES**
+* Git - **GitHub/YES**
 
 
 The following things to be kept in check:
 ===================================================
 
 * You need to document the steps and write the algorithms in them.
-**This document details how the pipeline works and is quite literally the actual pipeline product**
+* * **This document details how the pipeline works and is quite literally the actual pipeline product**
 * The submission of your Github repository link is mandatory. In order to track your tasks, you need to share the link of the repository.
-**In the beginning of the documentation.  At time of this writing nearly 200 commits... and I started on another repo at first. **
+* * **In the beginning of the documentation.  At time of this writing nearly 200 commits... and I started on another repo at first. **
 * Document the step-by-step process starting from creating test cases, the executing it, and recording the results.
-**Everything is in GitHub and I've explained how it works**
+* * **Everything is in GitHub and I've explained how it works**
 * You need to submit the final specification document, which includes:
 
 * Project and tester details
 * Concepts used in the project
 * Links to the GitHub repository to verify the project completion
 * Your conclusion on enhancing the application and defining the USPs (Unique Selling Points)
-**The core of this document covers all of these topics.**
+* * **The core of this document covers all of these topics.**
