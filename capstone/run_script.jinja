@@ -4,11 +4,14 @@
 Pre-requisite Ubuntu Environment
 ********************************************
 
-This procedure is to be ran on a Ubuntu VM and was tested on Ubuntu Impish Indri (21.10).
+.. note:: This procedure is to be ran on a Ubuntu VM and was tested on Ubuntu Impish Indri (21.10).
+
+At this point you have your repo forked from my GitHub repo.  Follow the prompts from the script, but not you will need the https:// address from the previous section.  Also, you will need IAM permissions to your AWS account.
+
+The script takes about 18 minutes to fully run and another 3 minutes or so to execute the pipeline after that.  Times vary due to many variables: hub.docker.com being slow to deliver containers, apt-get taking long to get packages, etc.
 
 .. code-block:: bash
 
   wget -O infrastructure-deployment.sh https://raw.githubusercontent.com/coolrazor007/sphinx_doc/main/infrastructure-deployment.sh
   sudo sh infrastructure-deployment.sh
 
-  

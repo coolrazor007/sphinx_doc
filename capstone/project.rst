@@ -7,6 +7,8 @@
 
 .. include:: run_script.jinja
 
+.. include:: what_happend.jinja
+
 .. include:: conclusion.jinja
 
 .. include:: project_3.jinja

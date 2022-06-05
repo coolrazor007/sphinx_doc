@@ -26,3 +26,14 @@ resource "local_file" "jenkins_config" {
   depends_on                = [aws_eip.jenkins,aws_instance.jenkins,aws_eip.pipeline,aws_instance.pipeline]
 }
 
+
+# Update the IP for actual pipeline EC2 instance that'll host the HTML
+resource "local_file" "pipeline_documentation" {
+  content = templatefile("capstone/what_happend.tpl",
+    {
+      pipelineIP = aws_eip.pipeline.public_ip
+    }
+  )
+  filename                  = "capstone/what_happend.jinja"
+  depends_on                = [aws_eip.jenkins,aws_instance.jenkins,aws_eip.pipeline,aws_instance.pipeline]
+}
