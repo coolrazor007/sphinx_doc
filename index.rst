@@ -10,7 +10,6 @@ Post-Graduate DevOps Program Capstone
    :caption: Contents:
 
 
-   genindex
 
 
    capstone/project
