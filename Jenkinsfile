@@ -62,7 +62,7 @@ pipeline {
                 sh """
                     sudo docker run --rm -v /docs:/docs --name sphinx localhost:5000/sphinx-latexpdf:4.5.0 make html
                     sudo docker run --rm -v /docs:/docs --name sphinx localhost:5000/sphinx-latexpdf:4.5.0 make latexpdf
-                    sudo cp /docs/_build/latex/devopscapstoneproject.pdf /docs/_build/html/devopscapstoneproject.pdf
+                    sudo cp /docs/_build/latex/simplilearncaltechdevopscapstoneproject.pdf /docs/_build/html/simplilearncaltechdevopscapstoneproject.pdf
                 """
             }
         }
