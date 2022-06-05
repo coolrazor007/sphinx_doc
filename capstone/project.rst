@@ -3,6 +3,8 @@
 
 .. literalinclude:: capstone/intro.jinja
 
+
+
 ********************************************
 Introduction
 ********************************************
@@ -239,8 +241,8 @@ After all of this you can navigate to the IP of the EC2 VM on port 80 and hit Wo
 
 Congratulations you now have an EC2 instance in AWS running a Sphinx CI/CD Pipeline.
 
+.. include:: capstone/project_3.jinja
 
-
-
+.. include:: capstone/appendix.jinja
 
 
