@@ -21,7 +21,6 @@ Appendix
 
 .. toctree::
    :maxdepth: 3
-   :hidden:
 
    capstone/appendix
 

@@ -34,7 +34,7 @@ class Test(unittest.TestCase):
       pageTitle = Test.bs.find('h1').get_text()
       self.assertEqual('Post-Graduate DevOps Program Capstone¶', pageTitle);
    def test_contentExists(self):
-      content = Test.bs.find(id="indices-and-tables")
+      content = Test.bs.find(id="appendix")
       self.assertIsNotNone(content)
 if __name__ == '__main__':
    unittest.main()
