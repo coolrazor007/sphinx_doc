@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'DevOps Capstone Project'
+project = 'Simplilearn CalTech DevOps Capstone Project'
 copyright = '2022, Tim Phillips'
 author = 'Tim Phillips'
 
@@ -50,7 +50,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 #
 html_theme = 'bizstyle'
 
-body_max_width = 'none'
+#body_max_width = 'none'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
