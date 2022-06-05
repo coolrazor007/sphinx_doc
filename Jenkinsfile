@@ -55,8 +55,8 @@ pipeline {
                     sudo set -a
                     sudo . /var/ip.txt
                     sudo set +a
-                    sudo sed -i 's','pipelineIP',"$pipelineIP",'g' capstone/what_happend.jinja
-                    sudo sed -i 's','jenkinsIP',"$jenkinsIP",'g' capstone/what_happend.jinja
+                    sudo sed -i 's','pipelineIP',"\$pipelineIP",'g' capstone/what_happend.jinja
+                    sudo sed -i 's','jenkinsIP',"\$jenkinsIP",'g' capstone/what_happend.jinja
                     sudo cp ./* /docs/ -R
                     ls -la /docs/
                 """
