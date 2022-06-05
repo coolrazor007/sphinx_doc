@@ -55,12 +55,12 @@
 - name: Copy Jenkins Config
   shell: docker cp /var/jenkins_home/jenkins.yml jenkins:/bitnami/jenkins/home/jenkins.yml
 
+  # The "|| true" makes this pass even when it fails.  This will fail if the folder aready exists so this is to mitigate that making the playbook idempotent.
 - name: mkdir for pipeline job in jenkins container
-  shell: docker exec -it jenkins mkdir /bitnami/jenkins/home/jobs/pipeline
+  shell: docker exec -it jenkins mkdir /bitnami/jenkins/home/jobs/pipeline || true
 
 - name: Copy pipeline
   shell: docker cp /var/jenkins_home/pipeline_config.xml jenkins:/bitnami/jenkins/home/jobs/pipeline/config.xml
-
 
 - name: Install configuration-as-code plugin for Jenkins
   community.general.jenkins_plugin:
