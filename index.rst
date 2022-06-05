@@ -16,8 +16,12 @@ Post-Graduate DevOps Program Capstone
    capstone/todo
 
 
-Indices and tables
+Appendix
 ========================================
+
+.. toctree::
+   :maxdepth: 3
+   :hidden:
 
    capstone/appendix
 
