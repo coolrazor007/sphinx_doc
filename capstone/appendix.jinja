@@ -44,3 +44,30 @@ The following things to be kept in check:
     Links to the GitHub repository to verify the project completion
     Your conclusion on enhancing the application and defining the USPs (Unique Selling Points)
 
+
+Appendix B
+===============
+
+.. note:: 
+  These are the main files for the project (there are more)
+
+Main install script that also orchestrates the whole thing
+
+.. literalinclude:: ../infrastructure-deployment.sh
+
+The two Terraform files meant for creating the two EC2 instances
+
+.. literalinclude:: ../jenkins.tf
+
+.. literalinclude:: ../pipeline.tf
+
+Clever Terraform output file that creates several configuration files (and quality of life files)
+
+.. literalinclude:: ../output.tf
+
+This is the Jenkinsfile that is the CI/CD pipeline
+
+.. literalinclude:: ../Jenkinsfile
+
+Here we have the playbook for Ansible that configures everything.  It isn't much to look at itself as I use roles for configuration
+.. literalinclude:: ../main.yml
