@@ -8,7 +8,7 @@ Post-Graduate DevOps Program Capstone
 .. toctree::
    :maxdepth: 3
    :caption: Contents:
-   :hidden:
+
 
    genindex
 
