@@ -5,6 +5,10 @@
 Post-Graduate DevOps Program Capstone
 ========================================
 
+
+Indices and tables
+==================
+
 .. toctree::
    :maxdepth: 3
    :caption: Contents:
@@ -16,8 +20,9 @@ Post-Graduate DevOps Program Capstone
    capstone/todo
 
 
-Indices and tables
-==================
+
+
+
 
 * :ref:`genindex`
 * :ref:`modindex`
