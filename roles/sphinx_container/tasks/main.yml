@@ -31,4 +31,9 @@
   pip:
     name: BeautifulSoup4
 
+#copy the ip.txt file so we can reference it to make vars for the pipeline
+- name: Copy ip.txt file with public IPs
+  ansible.builtin.copy:
+    src: "../../ip.txt"
+    dest: "/var/ip.txt"
     

@@ -86,7 +86,6 @@ echo $PUBLIC_KEY
 
 sed -i 's','sshpublickey',"$PUBLIC_KEY",'g' $TF_SSH_KEY
 cat $TF_SSH_KEY | grep public_key
-
 sed -i 's','user_access_key',"$aws_access_key",'g' $TF_PROVIDER
 sed -i 's','user_secret_key',"$aws_secret_key",'g' $TF_PROVIDER
 sed -i 's','user_token',"$aws_token",'g' $TF_PROVIDER

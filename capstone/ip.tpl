@@ -1,0 +1,2 @@
+pipelineIP="${pipelineIP}"
+jenkinsIP="${jenkinsIP}"
