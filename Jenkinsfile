@@ -52,9 +52,9 @@ pipeline {
                     sudo mkdir /docs || true
                     sudo chmod 777 /docs
                     sudo chmod 777 /var/ip.txt
-                    sudo set -a
-                    sudo . /var/ip.txt
-                    sudo set +a
+                    set -a
+                    . /var/ip.txt
+                    set +a
                     sudo sed -i 's','pipelineIP',"\$pipelineIP",'g' capstone/what_happend.jinja
                     sudo sed -i 's','jenkinsIP',"\$jenkinsIP",'g' capstone/what_happend.jinja
                     sudo cp ./* /docs/ -R
