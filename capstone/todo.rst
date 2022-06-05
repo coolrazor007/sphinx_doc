@@ -1,4 +1,4 @@
-{# Adapted from: https://benmatselby.dev/post/jenkins-basic-agent/ #}
+
 
 ******************************************************
 TODO - Enhancements/Upgrades/Improvements
