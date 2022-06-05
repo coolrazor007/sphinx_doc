@@ -19,7 +19,7 @@ Post-Graduate DevOps Program Capstone
 Indices and tables
 ========================================
 
-
+   capstone/appendix
 
 
 * :ref:`search`

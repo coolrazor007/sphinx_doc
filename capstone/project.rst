@@ -11,6 +11,6 @@
 
 .. include:: project_3.jinja
 
-.. include:: appendix.jinja
+
 
 
